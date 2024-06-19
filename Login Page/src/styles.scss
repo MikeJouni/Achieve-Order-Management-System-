@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+
+// ====================================================
+// Translation
+
+#lang-section[dir="ltr"] {
+  text-align: left;
+
+  .dir-simple {
+    text-align: left;
+  }
+
+  .dir-reverse {
+    text-align: right;
+  }
+
+  .form-group {
+    text-align: left;
+  }
+}
+
+#lang-section[dir="rtl"] {
+  text-align: right;
+
+  .dir-simple {
+    text-align: right;
+  }
+
+  .dir-reverse {
+    text-align: left;
+  }
+
+  .form-group {
+    text-align: right;
+  }
+}

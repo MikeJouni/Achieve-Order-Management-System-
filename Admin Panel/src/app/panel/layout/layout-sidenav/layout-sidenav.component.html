@@ -1,0 +1,51 @@
+<sidenav [orientation]="orientation" class="my-sidenav-theme">
+  <!-- Inner -->
+  <div class="sidenav-inner" [ngClass]="{ 'py-1': orientation !== 'horizontal' }">
+    <sidenav-block class="my-1">
+      <div class="sidenav-logo">
+        <img src="assets/achieve-logo-transparent.png">
+      </div>
+    </sidenav-block>
+
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/dashboard')" icon="fas fa-chart-bar" route="/dashboard"
+      [active]="isActive('/dashboard')">{{'Sidenav_Component.DASHBOARD' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/company')" icon="far fa-building" route="/company"
+      [active]="isActive('/company')">{{'Sidenav_Component.COMPANIES' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/admin')" icon="fas fa-user-shield" route="/admin"
+      [active]="isActive('/admin')">{{'Sidenav_Component.ADMINS' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/employee')" icon="fas fa-user-tie" route="/employee"
+      [active]="isActive('/employee')">{{'Sidenav_Component.EMPLOYEES' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/customer')" icon="fas fa-user" route="/customer"
+      [active]="isActive('/customer')">{{'Sidenav_Component.CUSTOMERS' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/driver')" icon="fas fa-truck-loading" route="/driver"
+      [active]="isActive('/driver')">{{'Sidenav_Component.DRIVERS' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/stock')" icon="fas fa-tag" route="/stock"
+      [active]="isActive('/stock')">{{'Sidenav_Component.STOCKS' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/bakery-stock')" icon="fas fa-tag" route="/bakery-stock"
+      [active]="isActive('/bakery-stock')">{{'Sidenav_Component.BAKERY_STOCKS' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/order')" icon="fas fa-cart-plus" route="/order"
+      [active]="isActive('/order')">{{'Sidenav_Component.ORDERS' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/bakery-order')" icon="fas fa-cart-plus" route="/bakery-order"
+      [active]="isActive('/bakery-order')">{{'Sidenav_Component.BAKERY_ORDERS'
+      | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/create-bakery-order')" icon="fas fa-plus"
+      route="/create-bakery-order" [active]="isActive('/create-bakery-order')">{{'Sidenav_Component.CREATE_BAKERY_ORDER'
+      | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/store-payment')" icon="fas fa-money-check-alt"
+      route="/store-payment" [active]="isActive('/store-payment')">{{'Sidenav_Component.STORE_EXPENSES' |
+      translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/collected-payment')" icon="fas fa-money-bill-alt "
+      route="/collected-payment" [active]="isActive('/collected-payment')">{{'Sidenav_Component.COLLECTED_PAYMENTS' |
+      translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/customer-debt')" icon="fas fa-dollar-sign"
+      route="/customer-debt" [active]="isActive('/customer-debt')">{{'Sidenav_Component.CUSTOMER_DEBTS' |
+      translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/note-reminder')" icon="fas fa-bell" route="/note-reminder"
+      [active]="isActive('/note-reminder')">{{'Sidenav_Component.NOTES_REMINDERS' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/activity')" icon="fas fa-exchange-alt" route="/activity"
+      [active]="isActive('/activity')">{{'Sidenav_Component.ACTIVITIES' | translate}}</sidenav-router-link>
+    <sidenav-router-link *ngIf="linksVisibilityReturn('/database-backup')" icon="fas fa-database"
+      route="/database-backup" [active]="isActive('/database-backup')">{{'Sidenav_Component.DATABASE_BACKUP' |
+      translate}}</sidenav-router-link>
+  </div>
+</sidenav>

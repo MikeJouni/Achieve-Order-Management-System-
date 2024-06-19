@@ -1,0 +1,33 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-0">
+  {{'DatabaseBackup_Page.DATABASE_BACKUP' | translate}}</h4>
+<div class="container" *ngIf="!loading">
+  <div class="row">
+    <div class="col-6">
+      <button class="btn btn-light w-100" (click)="onImportDatabase()"><i class="fas fa-arrow-down"
+          style="color: rgb(115, 253, 115);"></i>
+        <h3 class="text-center">{{'DatabaseBackup_Page.IMPORT' | translate}}</h3>
+        <p class="text-center whitespace-normal">{{'DatabaseBackup_Page.SECURING_YOUR_BUSINESS' | translate}} <br>
+          {{'DatabaseBackup_Page.IMPORTING_A_RELIABLE_DATABASE_FOR_DATA_BACKUP' | translate}}</p>
+      </button>
+      <label class="custom-file">
+        <input type="file" class="custom-file-input" accept=".sequelize"
+          (change)="handleFileInput($event.target.files)" />
+        <span class="custom-file-label">{{fileToUpload?.name}}</span>
+      </label>
+    </div>
+    <div class="col-6 text-center">
+      <button class="btn btn-light w-100" (click)="onExportDatabase()"><i class="fas fa-arrow-up"
+          style="color: #bfbfbf;"></i>
+        <h3 class="text-center">{{'DatabaseBackup_Page.EXPORT' | translate}}</h3>
+        <p class="text-center whitespace-normal">{{'DatabaseBackup_Page.SAFEKEEPING_YOUR_BUSINESS' | translate}} <br>
+          {{'DatabaseBackup_Page.EXPORTING_A_ROBUST_DATABASE_FOR_DATA_BACKUP' | translate}}</p>
+      </button>
+      <a class="text-center mt-3" *ngIf="exportedFile"
+        [href]="fileService?.fileUrl + exportedFile"><strong>{{'DatabaseBackup_Page.DOWNLOAD' | translate}}</strong> <i
+          class="fas fa-download download-icon"></i> </a>
+    </div>
+  </div>
+</div>
+<div class="d-block text-center">
+  <img class="text-center" *ngIf="loading" width="100%" src="assets/loading-icon.gif" alt="">
+</div>

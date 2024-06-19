@@ -1,0 +1,198 @@
+<button class="btn btn-dark" (click)="onBack()">{{'AdminSettings_Page.BACK' | translate}}</button>
+<h4 class="font-weight-bold py-3 mb-4">
+  {{'AdminSettings_Page.ACCOUNT_SETTINGS' | translate}}
+</h4>
+<div class="card overflow-hidden col-md-5 col-xs-12 mydiv">
+  <div class="row no-gutters row-bordered row-border-light">
+    <div class="col pt-0">
+      <hr class="border-light m-0">
+      <div class="card-body">
+        <div class="form mb-2">
+          <img *ngIf="!adminArray?.profilePhoto" src="assets/user-profile.svg" />
+          <img *ngIf="adminArray?.profilePhoto" [src]="adminService.fileUrl + adminArray?.profilePhoto" />
+        </div>
+        <div class="form">
+          <label class="form-label">{{'AdminSettings_Page.NAME' | translate}} :</label><br>
+          <h5 class="text-dark">{{adminArray?.name}}</h5>
+        </div>
+        <div class="form">
+          <label class="form-label">{{'AdminSettings_Page.E_MAIL' | translate}} :</label><br>
+          <h5 class="text-dark">{{adminArray?.email}}</h5>
+        </div>
+        <div class="form">
+          <label class="form-label">{{'AdminSettings_Page.ROLE' | translate}} :</label><br>
+          <h5 class="text-dark" *ngIf="adminArray?.isSuperAdmin==true">
+            {{'General.SUPER_ADMIN' | translate}}
+          </h5>
+          <h5 class="text-dark" *ngIf="adminArray?.isSuperAdmin==false">
+            {{'General.ADMIN' | translate}}
+          </h5>
+        </div>
+        <div class="form">
+          <label class="form-label">{{'AdminSettings_Page.VISIBILITY' | translate}} :</label><br>
+          <h5 class="text-dark">{{'AdminSettings_Page.COST_AND_PROFIT_VISIBLE_TO_EMPLOYEE' | translate}} &nbsp;
+            <label class="switcher text-center switcher-primary">
+              <input type="checkbox" (change)="onChange($event)" [(ngModel)]="isProfitCostVisible"
+                class="switcher-input" />
+              <span class="switcher-indicator">
+                <span class="switcher-yes">
+                  <span class="ion ion-md-checkmark"></span>
+                </span>
+                <span class="switcher-no">
+                  <span class="ion ion-md-close"></span>
+                </span>
+              </span>
+              <span class="switcher-label"></span>
+            </label>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-right m-3">
+    <button type="button" class="btn my-1 btn-secondary" routerLink='/admin-detail'>{{'AdminSettings_Page.DETAILS' |
+      translate}}</button>&nbsp;
+    <button type="button" class="btn my-1 btn-primary"
+      (click)="open(editModal, null)">{{'AdminSettings_Page.EDIT_PROFILE' | translate}}</button>&nbsp;
+    <button type="button" class="btn my-1 btn-default"
+      (click)="open(editPassword, null)">{{'AdminSettings_Page.CHANGE_PASSWORD' | translate}}</button>
+    <button type="button" *ngIf="adminArray?.isSuperAdmin" class="btn my-1 btn-default"
+      (click)="open(backgroundModal)">{{'AdminSettings_Page.LOGIN_BACKGROUND' | translate}}</button>
+    <!-- <button class="btn btn-default">
+      <label class="switcher text-center switcher-primary">&nbsp; Cost & Profit Visible to Employee
+        <input type="checkbox" (change)="onChange($event)" [(ngModel)]="isProfitCostVisible" class="switcher-input" />
+        <span class="switcher-indicator">
+          <span class="switcher-yes">
+            <span class="ion ion-md-checkmark"></span>
+          </span>
+          <span class="switcher-no">
+            <span class="ion ion-md-close"></span>
+          </span>
+        </span>
+        <span class="switcher-label"></span>
+      </label>
+    </button> -->
+  </div>
+  <!-- edit admin modal template -->
+  <ng-template #editModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'AdminSettings_Page.EDIT_ADMIN' | translate}}
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'AdminSettings_Page.NAME' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'General.JOHN_DOE' | translate}}"
+            [(ngModel)]="adminData.name" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'AdminSettings_Page.E_MAIL' | translate}}</label>
+          <input type="email" class="form-control" placeholder="someone@gmail.com" [(ngModel)]="adminData.email" />
+        </div>
+      </div>
+      <div class="form-row mt-3">
+        <div class="form-group col mb-0">
+          <label class="form-label">
+            {{'AdminSettings_Page.ADD_IMAGE' | translate}} <small>({{'AdminSettings_Page.OPTIONAL' | translate}})
+              <br>({{'AdminSettings_Page.MAX_SIZE_2_MB' | translate}})</small>
+          </label>
+          <label class="custom-file">
+            <input accept="image/png, image/jpeg" type="file" class="custom-file-input"
+              (change)="handleFileInput($event.target.files)" />
+            <span class="custom-file-label">{{fileToUpload ? fileToUpload?.name : profilePhotoVar}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click')">
+        {{'AdminSettings_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="updateAdmin()">
+        {{'AdminSettings_Page.SAVE_CHANGES' | translate}}
+      </button>
+    </div>
+  </ng-template>
+  <!-- /edit user modal template -->
+  <!-- edit background modal template -->
+  <ng-template #backgroundModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'AdminSettings_Page.AUTH_BACKGROUND_IMAGE' | translate}}
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row mt-3">
+        <div class="form-group col mb-0">
+          <label class="form-label">
+            {{'AdminSettings_Page.BACKGROUND_IMAGE' | translate}} <small>({{'AdminSettings_Page.MAX_SIZE_2_MB' |
+              translate}})</small>
+          </label>
+          <label class="custom-file">
+            <input accept="image/png, image/jpeg" type="file" class="custom-file-input"
+              (change)="handleFileInput($event.target.files)" />
+            <span class="custom-file-label">{{fileToUpload ? fileToUpload?.name : loginPageBackground}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click')">
+        {{'AdminSettings_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="updateBackground()">
+        {{'AdminSettings_Page.SAVE_CHANGES' | translate}}
+      </button>
+    </div>
+  </ng-template>
+  <!-- /edit background modal template -->
+  <!-- change password -->
+  <ng-template #editPassword let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'AdminSettings_Page.CHANGE_PASSWORD' | translate}}<br />
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'AdminSettings_Page.OLD_PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="passwordData.oldPassword" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'AdminSettings_Page.NEW_PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="passwordData.newPassword" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'AdminSettings_Page.CONFIRM_NEW_PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="confirmPassword" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click')">
+        {{'AdminSettings_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="changePassword();successDialog.show()">
+        {{'AdminSettings_Page.SAVE_CHANGES' | translate}}
+      </button>
+    </div>
+  </ng-template>

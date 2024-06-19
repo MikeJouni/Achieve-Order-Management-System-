@@ -1,0 +1,308 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  {{'Debts_Page.DEBTS' | translate}}
+  <button type="button" class="btn btn-primary btn-round d-block" (click)="open(createModal)">
+    <span class="ion ion-md-add"></span>&nbsp; {{'Debts_Page.ADD_DEBT' | translate}}
+  </button>
+</h4>
+
+<div class="card">
+  <div class="card-body">
+    <div class="ui-bordered px-4 pt-4 mb-4">
+      <div class="form-row align-items-center">
+        <div class="col-md mb-4">
+          <div class="row">
+            <div class="col-md"><label class="form-label">{{'General.DATE_FILTER' | translate}}</label></div>
+            <div class="col-md float-right text-right" *ngIf="statFilter.type =='custom-date-range' && fromDate && toDate">({{fromDate?.year + '-' + fromDate?.month + '-' + fromDate?.day}}) - ({{toDate?.year + '-' + toDate?.month + '-' + toDate?.day}})</div>
+          </div>
+          <select class="custom-select" [(ngModel)]="statFilter.type">
+            <option *ngFor="let item of statTypeList" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md mb-4" *ngIf="statFilter.type !=='custom-date-range'">
+          <label class="form-label">{{'Debts_Page.DATE' | translate}}</label>
+          <form class="form-inline w-100">
+            <div class="form-group w-100">
+              <div class="input-group w-100">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                  [(ngModel)]="statFilter.date" placement="bottom-left" #d="ngbDatepicker"
+                  [disabled]="statFilter.type=='today' || statFilter.type=='yesterday' || statFilter.type=='7-days' || statFilter.type=='30-days' || statFilter.type=='this-month' || statFilter.type=='last-month'">
+                <div class="input-group-append">
+                  <button class="input-group-text" (click)="d.toggle()" type="button"
+                    [disabled]="statFilter.type=='today' || statFilter.type=='yesterday' || statFilter.type=='7-days' || statFilter.type=='30-days' || statFilter.type=='this-month' || statFilter.type=='last-month'">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <button class="btn btn-secondary" *ngIf="statFilter.type =='custom-date-range'"
+          (click)="showRangePicker = true">{{'General.CHOOSE_DATE' | translate}}</button>
+        <div class="col-md col-xl-2 mb-4">
+          <label class="form-label d-none d-md-block">&nbsp;</label>
+          <button type="button" class="btn btn-dark btn-block" (click)="getStatsData()">{{'Debts_Page.SHOW' |
+            translate}}</button>
+        </div>
+        <div class="col-md-12 mb-4" *ngIf="statFilter.type =='custom-date-range' && showRangePicker">
+          <!-- range picker -->
+          <div class="card-body p-0">
+            <div class="demo-vertical-spacing mt-4 mr-0 pr-0">
+              <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+              </ngb-datepicker>
+              <ng-template #t let-date="date" let-focused="focused">
+                <div class="ngb-range-day"
+                  [ngClass]="{ 'bg-primary text-white': isFrom(date) || isTo(date), 'bg-light ngb-in-range': isHovered(date) || isInside(date) }"
+                  (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                  {{ date.day }}
+                </div>
+              </ng-template>
+
+              <!-- <pre>From: {{ fromDate | json }} </pre>
+              <pre>To: {{ toDate | json }} </pre> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class=" font-weight-bold">{{'Debts_Page.DEBTS_AMOUNT' | translate}}</div>
+            <div class="text-large ">
+              {{statsData?.amount ? numberWithCommas(statsData?.amount) : '-'}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card card-blue mb-4">
+          <div class="card-body">
+            <div class=" font-weight-bold">{{'Debts_Page.TOTAL_DEBTS' | translate}}</div>
+            <div class="text-large " *ngIf="allDebts>0">{{numberWithCommas(allDebts)}}</div>
+            <div class="text-large " *ngIf="allDebts==0">-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card">
+  <!-- Table controls -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{'Debts_Page.PER_PAGE' | translate}}: &nbsp;
+        <select [(ngModel)]="perPage" (change)="update()" class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [10, 20, 30, 40, 50]">
+            {{ limit }}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" [(ngModel)]="filterVal" (input)="currentPage = 1; update()"
+          class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+          placeholder="{{'Debts_Page.SEARCH' | translate}}" />
+      </div>
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0" />
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('customerId')">
+            {{'Debts_Page.CUSTOMER' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'customerId'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('description')">
+            {{'Debts_Page.DESCRIPTION' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'description'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-center">{{'Debts_Page.AMOUNT' | translate}}</th>
+          <th class="text-center">{{'Debts_Page.ORDER_DETAIL' | translate}}</th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('date')">
+            {{'Debts_Page.DATE' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'date'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-center">{{'Debts_Page.ACTIONS' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of debtArray;index as i">
+          <td class="text-center">{{i + 1}}</td>
+          <td class="align-middle py-2">{{ item?.customerName }}</td>
+          <td class="align-middle py-2">{{ item?.description }}</td>
+          <td class="align-middle text-center py-2">{{ item?.amount }}</td>
+          <td class="align-middle py-2 text-center"><button *ngIf="item?.orderId" class="btn btn-dark btn-sm"
+              routerLink='/order-detail/{{item?.orderId}}'>{{'Debts_Page.VIEW' | translate}}</button>
+            <p *ngIf="!item?.orderId">-</p>
+          </td>
+          <td class="align-middle py-2">{{ item?.date | date}}</td>
+          <td class="text-nowrap align-middle p-2 text-center">
+            <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-info"
+              ngbTooltip="{{'General.EDIT' | translate}}" (click)="open(editModal, item)"><i
+                class="ion ion-md-create"></i></a>&nbsp;
+            <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-danger"
+              ngbTooltip="{{'General.DELETE' | translate}}" (click)="debtId=item.id;deleteDialog.show()"><i
+                class="ion ion-md-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">{{'Debts_Page.PAGE' | translate}} {{ currentPage }}
+          {{'Debts_Page.OF' | translate}} {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems" [pageSize]="perPage" [(page)]="currentPage" [maxSize]="1"
+          (pageChange)="update()" size="sm"
+          class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>
+<swal #deleteDialog
+  [options]="{type: 'warning', title:('General.ARE_YOU_SURE' | translate), customClass: translationService?.isRTL ? 'swal-rtl' : 'swal-ltr',showCancelButton:  true, confirmButtonText: ('General.DELETE' | translate), cancelButtonText: ('General.CANCEL' | translate), showCloseButton: true, confirmButtonClass: 'btn btn-lg btn-warning m-2', cancelButtonClass: 'btn btn-lg btn-default m-2'}"
+  (confirm)="deleteDebt()"></swal>
+<!-- Add user modal template -->
+<ng-template #createModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{'Debts_Page.CREATE_DEBT' | translate}} <br />
+    </h5>
+    <button type="button" class="close" (click)="d('Cross click')">
+      &times;
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">{{'Debts_Page.CUSTOMER' | translate}}</label>
+        <ng-select [items]="customersArray" class="p-0 m-0" bindLabel="name" bindValue="id"
+          [(ngModel)]="debtData.customerId" name="customer id"
+          placeholder="{{'Debts_Page.SELECT_CUSTOMER' | translate}}"></ng-select>
+      </div>
+      <div class="form-group col mb-0">
+        <label class="form-label">{{'Debts_Page.AMOUNT' | translate}}</label>
+        <input type="number" class="form-control" placeholder="{{'Debts_Page.SOME_AMOUNT' | translate}}"
+          [(ngModel)]="debtData.amount" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">{{'Debts_Page.DESCRIPTION' | translate}}</label>
+        <textarea rows="5" class="form-control" placeholder="{{'Debts_Page.SOME_DESCRIPTION' | translate}}"
+          [(ngModel)]="debtData.description"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">Date</label>
+        <form class="form-inline w-100">
+          <div class="form-group w-100">
+            <div class="input-group w-100">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                [(ngModel)]="customerDebtDate" placement="bottom-left" #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="input-group-text" (click)="d.toggle()" type="button">
+                  <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="c('Close click');">
+      {{'Debts_Page.CLOSE' | translate}}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="createDebt()" [disabled]="btnLoading">
+      <span class="my-btn-loader">
+        {{'Debts_Page.CREATE' | translate}}
+        <span *ngIf="btnLoading" class="my-loader"></span>
+      </span>
+    </button>
+  </div>
+</ng-template>
+<!-- /add user modal template -->
+<!-- edit user modal template -->
+<ng-template #editModal let-c="close" let-d="dismiss">
+  <div>
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'Debts_Page.EDIT_DEBT' | translate}}<br />
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click');">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Debts_Page.CUSTOMER' | translate}}</label>
+          <ng-select [items]="customersArray" class="p-0 m-0" bindLabel="name" bindValue="id"
+            [(ngModel)]="debtData.customerId" name="customer id"
+            placeholder="{{'Debts_Page.SELECT_CUSTOMER' | translate}}"></ng-select>
+        </div>
+        <div class="form-group col">
+          <label class="form-label">{{'Debts_Page.AMOUNT' | translate}}</label>
+          <input type="number" class="form-control" placeholder="{{'Debts_Page.SOME_AMOUNT' | translate}}"
+            [(ngModel)]="debtData.amount" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Debts_Page.DESCRIPTION' | translate}}</label>
+          <textarea rows="5" class="form-control" placeholder="{{'Debts_Page.SOME_DESCRIPTION' | translate}}"
+            [(ngModel)]="debtData.description"></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Debts_Page.DATE' | translate}}</label>
+          <form class="form-inline w-100">
+            <div class="form-group w-100">
+              <div class="input-group w-100">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                  [(ngModel)]="customerDebtDate" placement="bottom-left" #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="input-group-text" (click)="d.toggle()" type="button">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click'); debtDataClear()">
+        {{'Debts_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="updateDebt()" [disabled]="btnLoading">
+        <span class="my-btn-loader">
+          {{'Debts_Page.SAVE_CHANGES' | translate}}
+          <span *ngIf="btnLoading" class="my-loader"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- /edit user modal template -->

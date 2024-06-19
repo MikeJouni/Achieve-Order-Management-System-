@@ -1,0 +1,90 @@
+<button class="btn btn-dark" (click)="onBack()">{{'DriverOrder_Page.BACK' | translate}}</button>
+<div class="d-flex justify-content-between align-items-center">
+  <h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold pt-3 mb-4 p-0">
+    {{driverInfo?.name}}
+    {{'DriverOrder_Page.S_ORDERS' | translate}}
+  </h4>
+</div>
+<div class="card">
+  <!-- Table controls -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{'DriverOrder_Page.PER_PAGE' | translate}}: &nbsp;
+        <select [(ngModel)]="perPage" (change)="update()" class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [10, 20, 30, 40, 50]">
+            {{ limit }}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" [(ngModel)]="filterVal" (input)="currentPage = 1; update()"
+          class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+          placeholder="{{'DriverOrder_Page.SEARCH' | translate}}" />
+      </div>
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0" />
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th>{{'DriverOrder_Page.UNIQUE_ID' | translate}}</th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('amount')">
+            {{'DriverOrder_Page.AMOUNT' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'amount'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-center cursor-pointer" (click)="setSort('status')">
+            {{'DriverOrder_Page.STATUS' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'status'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-center">{{'DriverOrder_Page.CREATED' | translate}}</th>
+          <th class="text-center">{{'DriverOrder_Page.DETAIL' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of driverOrderArray;">
+          <td class="align-middle py-2">{{ item?.uniqueId }}</td>
+          <td class="align-middle py-2">{{ item?.amount }}</td>
+          <td class="text-center align-middle ">
+            <div class="p-1" [ngClass]="
+            item?.status=='completed' ?'badge badge-success':
+            item?.status=='in-progress' ?'badge badge-warning':
+            item?.status=='cancelled' ?'badge badge-danger':
+            ''
+            ">
+              {{
+              item?.status=='completed' ?('General.COMPLETED' | translate):
+              item?.status=='in-progress' ?('General.IN_PROGRESS' | translate):
+              item?.status=='cancelled' ?('General.CANCELLED' | translate):
+              ''
+              }}</div>
+          </td>
+          <td class="align-middle py-2 text-center">{{ item?.createdAt | date:'medium' }}</td>
+          <td *ngIf="companyType == 'normal'" class="align-middle py-2 text-center"><button class="btn btn-dark btn-sm"
+              routerLink='/order-detail/{{item?.id}}'>{{'DriverOrder_Page.VIEW' | translate}}</button></td>
+          <td *ngIf="companyType == 'bakery'" class="align-middle py-2 text-center"><button class="btn btn-dark btn-sm"
+              routerLink='/bakery-order-detail/{{item?.id}}'>{{'DriverOrder_Page.VIEW' | translate}}</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">{{'DriverOrder_Page.PAGE' | translate}} {{ currentPage }}
+          {{'DriverOrder_Page.OF' | translate}} {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems" [pageSize]="perPage" [(page)]="currentPage" [maxSize]="1"
+          (pageChange)="update()" size="sm"
+          class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>

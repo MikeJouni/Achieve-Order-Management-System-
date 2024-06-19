@@ -1,0 +1,220 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  {{'Order_Page.ORDERS' | translate}}
+  <button type="button" class="btn btn-primary btn-round d-block" routerLink='/create-bakery-order'>
+    <span class="ion ion-md-add"></span>&nbsp; {{'Order_Page.CREATE_ORDER' | translate}}
+  </button>
+</h4>
+<div class="ui-bordered px-4 pt-4 mb-4">
+  <div class="form-row align-items-center">
+    <div class="col-md mb-4">
+      <div class="row">
+        <div class="col-md"><label class="form-label">{{'General.DATE_FILTER' | translate}}</label></div>
+        <div class="col-md float-right text-right" *ngIf="bindType =='custom-date-range' && fromDate && toDate">({{fromDate?.year + '-' + fromDate?.month + '-' + fromDate?.day}}) - ({{toDate?.year + '-' + toDate?.month + '-' + toDate?.day}})</div>
+      </div>
+      <select class="custom-select" [(ngModel)]="bindType">
+        <option *ngFor="let item of selectType" [value]="item.value">{{item.label | translate}}</option>
+      </select>
+    </div>
+    <div class="col-md mb-4" *ngIf="bindType !=='custom-date-range'">
+      <label class="form-label">Date</label>
+      <form class="form-inline w-100">
+        <div class="form-group w-100">
+          <div class="input-group w-100">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker [(ngModel)]="bindDate"
+              #d="ngbDatepicker"
+              [disabled]="bindType=='today' || bindType=='yesterday' || bindType=='7-days' || bindType=='30-days' || bindType=='this-month' || bindType.type=='last-month'">
+            <div class="input-group-append">
+              <button class="input-group-text" (click)="d.toggle()" type="button"
+                [disabled]="bindType=='today' || bindType=='yesterday' || bindType=='7-days' || bindType=='30-days' || bindType=='this-month' || bindType.type=='last-month'">
+                <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <button class="btn btn-secondary" *ngIf="bindType =='custom-date-range'" (click)="showRangePicker = true">{{'General.CHOOSE_DATE' | translate}}</button>
+    <div class="col-md col-xl-2 mb-4">
+      <label class="form-label d-none d-md-block">&nbsp;</label>
+      <button type="button" class="btn btn-dark btn-block" (click)="loadData()">{{'Order_Page.SHOW' |
+        translate}}</button>
+    </div>
+    <div class="col-md-12 mb-4" *ngIf="bindType =='custom-date-range' && showRangePicker">
+      <!-- range picker -->
+      <div class="card-body p-0">
+        <div class="demo-vertical-spacing mt-4 mr-0 pr-0">
+          <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+          </ngb-datepicker>
+          <ng-template #t let-date="date" let-focused="focused">
+            <div class="ngb-range-day"
+              [ngClass]="{ 'bg-primary text-white': isFrom(date) || isTo(date), 'bg-light ngb-in-range': isHovered(date) || isInside(date) }"
+              (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </div>
+          </ng-template>
+
+          <!-- <pre>From: {{ fromDate | json }} </pre>
+          <pre>To: {{ toDate | json }} </pre> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ul class="nav nav-tabs nav-responsive-xl">
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" [ngClass]="{active: myStatus === 'completed'}"
+      (click)="myStatus='completed';loadData()">{{'Order_Page.COMPLETED' | translate}}
+      <span class="badge badge-outline-success">{{completedOrdersArray?.length}}</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" [ngClass]="{active: myStatus === 'inProgress'}"
+      (click)="myStatus='inProgress';loadData()">{{'Order_Page.IN_PROGRESS' | translate}}
+      <span class="badge badge-outline-warning">{{inProgressOrdersArray?.length}}</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" [ngClass]="{active: myStatus === 'cancelled'}"
+      (click)="myStatus='cancelled';loadData()">{{'Order_Page.CANCELLED' | translate}}
+      <span class="badge badge-outline-danger">{{cancelledOrdersArray?.length}}</span>
+    </a>
+  </li>
+</ul>
+<div class="card">
+  <!-- Table controls -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{'Order_Page.PER_PAGE' | translate}}: &nbsp;
+        <select [(ngModel)]="perPage" (change)="update()" class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [10, 20, 30, 40, 50]">
+            {{ limit }}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" [(ngModel)]="filterVal" (input)="currentPage = 1; update()"
+          class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+          placeholder="{{'Order_Page.SEARCH' | translate}}" />
+      </div>
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0" />
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th>{{'Order_Page.UNIQUE_ID' | translate}}</th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('amount')">
+            {{'Order_Page.AMOUNT' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'amount'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-center cursor-pointer" (click)="setSort('status')">
+            {{'Order_Page.STATUS' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'status'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-center">{{'Order_Page.CREATED' | translate}}</th>
+          <th class="text-center">{{'Order_Page.DETAILS' | translate}}</th>
+          <th class="text-center">{{'Order_Page.ACTIONS' | translate}}</th>
+          <th class="text-center">{{'Order_Page.DELETE' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderArray;index as i">
+          <td class="text-center align-middle">{{i + 1}}</td>
+          <td class="align-middle py-2">{{ item?.uniqueId }}</td>
+          <td class="align-middle py-2">{{ item?.amount }}</td>
+          <td class="text-center align-middle ">
+            <div class="p-1" [ngClass]="
+            item?.status=='completed' ?'badge badge-success':
+            item?.status=='in-progress' ?'badge badge-warning':
+            item?.status=='cancelled' ?'badge badge-danger':
+            ''
+            ">
+              {{
+              item?.status=='completed' ?('General.COMPLETED' | translate):
+              item?.status=='in-progress' ?('General.IN_PROGRESS' | translate):
+              item?.status=='cancelled' ?('General.CANCELLED' | translate):
+              ''
+              }}</div>
+          </td>
+          <td class="align-middle py-2 text-center">{{item?.createdAt | date}}</td>
+          <td class="align-middle py-2 text-center"><button class="btn btn-dark btn-sm"
+              routerLink='/bakery-order-detail/{{item?.id}}'>{{'Order_Page.VIEW' | translate}}</button></td>
+          <td class="align-middle py-2 text-center" *ngIf="loading"><img class="loading-img"
+              src="assets/loading-icon.gif" alt=""></td>
+          <td class="align-middle py-2 text-center" *ngIf="item?.status !=='completed' || !loading">
+            <div ngbDropdown class="d-inline-flex" *ngIf="myStatus!='completed'">
+              <button class="btn btn-dark btn-sm" ngbDropdownToggle>{{'Order_Page.CHANGE_STATUS' | translate}}</button>
+              <div ngbDropdownMenu [class.dropdown-menu-right]="">
+                <a class="dropdown-item" *ngIf="item?.status =='in-progress' || item?.status =='cancelled'"
+                  (click)="statusData.id=item.id;statusData.status = 'completed';onStatusChange();">{{'Order_Page.COMPLETE'
+                  | translate}}</a>
+                <a class="dropdown-item" *ngIf="item?.status =='in-progress'"
+                  (click)="open(cancelModal, item)">{{'Order_Page.CANCEL' | translate}}</a>
+                <a class="dropdown-item" *ngIf="item?.status =='cancelled'"
+                  (click)="statusData.id=item.id;statusData.status = 'in-progress';onStatusChange();">{{'Order_Page.IN_PROGRESS'
+                  | translate}}</a>
+              </div>
+            </div>
+            <ng-container *ngIf="myStatus=='completed'">-</ng-container>
+          </td>
+          <td class="text-nowrap align-middle p-2 text-center">
+            <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-danger"
+              ngbTooltip="{{'General.DELETE' | translate}}" (click)="orderId=item.id;deleteDialog.show()"><i
+                class="ion ion-md-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">{{'Order_Page.PAGE' | translate}} {{ currentPage }}
+          {{'Order_Page.OF' | translate}} {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems" [pageSize]="perPage" [(page)]="currentPage" [maxSize]="1"
+          (pageChange)="update()" size="sm"
+          class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>
+<swal #deleteDialog
+  [options]="{type: 'warning', title:('General.ARE_YOU_SURE' | translate), customClass: translationService?.isRTL ? 'swal-rtl' : 'swal-ltr',showCancelButton:  true, confirmButtonText: ('General.DELETE' | translate), cancelButtonText: ('General.CANCEL' | translate), showCloseButton: true, confirmButtonClass: 'btn btn-lg btn-warning m-2', cancelButtonClass: 'btn btn-lg btn-default m-2'}"
+  (confirm)="deleteOrder()"></swal>
+<ng-template #cancelModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{'Order_Page.ORDER_CANCEL_REASON' | translate}}<br />
+    </h5>
+    <button type="button" class="close" (click)="d('Cross click')">
+      &times;
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label text-center">{{'Order_Page.REASON' | translate}}</label>
+        <input type="text" class="form-control" placeholder="Ordering again with new products"
+          [(ngModel)]="statusData.cancelReason" />
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="c('Close click');">
+      {{'Order_Page.CLOSE' | translate}}
+    </button>
+    <button type="button" class="btn btn-warning" (click)="statusData.status = 'cancelled';onStatusCancel()">
+      {{'Order_Page.CANCEL_ORDER' | translate}}
+    </button>
+  </div>
+</ng-template>

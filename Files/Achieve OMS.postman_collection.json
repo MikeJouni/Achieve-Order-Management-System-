@@ -1,0 +1,8362 @@
+{
+	"info": {
+		"_postman_id": "86780cc6-def4-4962-baa0-84d49ae9f239",
+		"name": "Achieve OMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21998948",
+		"_collection_link": "https://nextlevelsoftware.postman.co/workspace/Next-Level-Software-%257C-Workspace~0d54e3c2-e6bd-45b2-8e81-af3f902d30fb/collection/21998948-86780cc6-def4-4962-baa0-84d49ae9f239?action=share&creator=21998948&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Admin Panel",
+			"item": [
+				{
+					"name": "Activity",
+					"item": [
+						{
+							"name": "Get By Company And Filter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/activity/get-by-company-and-filter?companyId={{companyId}}&month=03&year=2023&type=year",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"activity",
+										"get-by-company-and-filter"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "month",
+											"value": "03"
+										},
+										{
+											"key": "year",
+											"value": "2023"
+										},
+										{
+											"key": "type",
+											"value": "year"
+										},
+										{
+											"key": "type",
+											"value": "month",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Admin\",\r\n    \"email\": \"testadmin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Admin New\",\r\n    \"email\": \"testadminnew@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profit Cost Visible",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isProfitCostVisible\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/update-profit-cost-visible",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"update-profit-cost-visible"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile Photo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/update-profile-photo/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"update-profile-photo",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testadmin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/change-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"password\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/update-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"update-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email Verification Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testadmin@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/email-verification-code",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"email-verification-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/delete/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"delete",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-one/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-one",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-one-detail/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-one-detail",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Unassign By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-unassign-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-unassign-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Store Payment Analytics By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-store-payment-analytics-by-company/{{companyId}}?month=03&year=2023&type=year-months",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-store-payment-analytics-by-company",
+										"{{companyId}}"
+									],
+									"query": [
+										{
+											"key": "month",
+											"value": "03"
+										},
+										{
+											"key": "year",
+											"value": "2023"
+										},
+										{
+											"key": "type",
+											"value": "year-months"
+										},
+										{
+											"key": "type",
+											"value": "month-days",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Sales Analytics By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-sales-analytics-by-company/{{companyId}}?month=03&year=2023&type=year-months",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-sales-analytics-by-company",
+										"{{companyId}}"
+									],
+									"query": [
+										{
+											"key": "month",
+											"value": "03"
+										},
+										{
+											"key": "year",
+											"value": "2023"
+										},
+										{
+											"key": "type",
+											"value": "year-months"
+										},
+										{
+											"key": "type",
+											"value": "month-days",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-order-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month&categoryId={{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-order-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										},
+										{
+											"key": "categoryId",
+											"value": "{{categoryId}}"
+										},
+										{
+											"key": "categoryId",
+											"value": "null",
+											"disabled": true
+										},
+										{
+											"key": "categoryId",
+											"value": "0",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Store Payment Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-store-payment-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-store-payment-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Collected Payment Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-collected-payment-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-collected-payment-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customer Debt Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-customer-debt-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-customer-debt-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Dashboard Stats By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/admin/get-dashboard-stats-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"admin",
+										"get-dashboard-stats-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Backup Restore",
+					"item": [
+						{
+							"name": "Backup Database",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/backup-restore/backup-database",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"backup-restore",
+										"backup-database"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Backup Database By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/backup-restore/backup-database-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"backup-restore",
+										"backup-database-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Restore Database",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/achieve_oms-backup_20230430091850.sequelize"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/backup-restore/restore-database",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"backup-restore",
+										"restore-database"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Category\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/category/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"category",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Test Category\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/category/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"category",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/category/delete/{{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"category",
+										"delete",
+										"{{categoryId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/category/get-one/{{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"category",
+										"get-one",
+										"{{categoryId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/category/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"category",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/category/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"category",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Collected Payment",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"amounType\": \"dollar\",\r\n    \"date\": \"2023-01-01\",\r\n    \"description\": \"This is description.\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/collected-payment/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"collected-payment",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"amount\": 1000,\r\n    \"amounType\": \"lebanese\",\r\n    \"date\": \"2023-01-01\",\r\n    \"description\": \"This is description.\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/collected-payment/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"collected-payment",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/collected-payment/delete/{{collectedPaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"collected-payment",
+										"delete",
+										"{{collectedPaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/collected-payment/get-one/{{collectedPaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"collected-payment",
+										"get-one",
+										"{{collectedPaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/collected-payment/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"collected-payment",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/collected-payment/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"collected-payment",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Company",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Company\",\r\n    \"detail\": \"Restaurant\",\r\n    \"licenseExpiryDate\": \"2023-01-01\",\r\n    \"adminId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Company New\",\r\n    \"detail\": \"Restaurant New\",\r\n    \"licenseExpiryDate\": \"2024-01-01\",\r\n    \"adminId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Deleted",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isDeleted\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/update-deleted",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"update-deleted"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profit Cost Visible",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isProfitCostVisible\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/update-profit-cost-visible",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"update-profit-cost-visible"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Logo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/update-logo/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"update-logo",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/delete/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"delete",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/get-one/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"get-one",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Profit Cost Visible",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/get-one-profit-cost-visible/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"get-one-profit-cost-visible",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Deleted",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/company/get-by-deleted/{{companyIsDeleted}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"company",
+										"get-by-deleted",
+										"{{companyIsDeleted}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Custom Variable",
+					"item": [
+						{
+							"name": "Update Login Background",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/custom-variable/update-login-background",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"custom-variable",
+										"update-login-background"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Login Background",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/custom-variable/get-login-background",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"custom-variable",
+										"get-login-background"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Customer\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Customer New\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer/delete/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer",
+										"delete",
+										"{{customerId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer/get-one/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer",
+										"get-one",
+										"{{customerId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer Debt",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"description\": \"This is description.\",\r\n    \"customerId\": 1,\r\n    \"companyId\": 1,\r\n    \"employeeId\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer-debt/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer-debt",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"amount\": 2000,\r\n    \"description\": \"This is description new.\",\r\n    \"customerId\": 1,\r\n    \"companyId\": 1,\r\n    \"employeeId\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer-debt/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer-debt",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer-debt/delete/{{customerDebtId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer-debt",
+										"delete",
+										"{{customerDebtId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer-debt/get-one/{{customerDebtId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer-debt",
+										"get-one",
+										"{{customerDebtId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer-debt/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer-debt",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/customer-debt/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"customer-debt",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Driver",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Driver\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"barcode\": \"ABC123\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/driver/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"driver",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Driver New\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"barcode\": \"ABC123\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/driver/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"driver",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/driver/delete/{{driverId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"driver",
+										"delete",
+										"{{driverId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/driver/get-one/{{driverId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"driver",
+										"get-one",
+										"{{driverId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/driver/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"driver",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/driver/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"driver",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Employee",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Employee\",\r\n    \"email\": \"testemployee@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Employee New\",\r\n    \"email\": \"testemployeenew@gmail.com\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile Photo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/update-profile-photo/{{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"update-profile-photo",
+										"{{employeeId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testemployee@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email Verification Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testemployee@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/email-verification-code",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"email-verification-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/change-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"password\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/update-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"update-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/delete/{{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"delete",
+										"{{employeeId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/get-one/{{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"get-one",
+										"{{employeeId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/employee/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"employee",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Note Reminder",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"note\": \"This is note text.\",\r\n    \"to\": \"This is to text.\",\r\n    \"dueDate\": \"2023-01-01\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/note-reminder/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"note-reminder",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"note\": \"This is note text updated.\",\r\n    \"to\": \"This is to text updated.\",\r\n    \"dueDate\": \"2023-01-01\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/note-reminder/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"note-reminder",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/note-reminder/delete/{{noteReminderId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"note-reminder",
+										"delete",
+										"{{noteReminderId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/note-reminder/get-one/{{noteReminderId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"note-reminder",
+										"get-one",
+										"{{noteReminderId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/note-reminder/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"note-reminder",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/note-reminder/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"note-reminder",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerId\": 1,\r\n    \"driverId\": 1,\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1,\r\n    \"note\": \"This is note.\",\r\n    \"type\": \"normal\",\r\n    \"isAmountNotPaid\": false,\r\n    \"orderItems\": [\r\n        {\r\n            \"stockId\": 1,\r\n            \"quantity\": 5,\r\n            \"discount\": 20\r\n        },\r\n        {\r\n            \"stockId\": 2,\r\n            \"quantity\": 3,\r\n            \"discount\": 0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"status\": \"completed\",\r\n    \"employeeId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/update-status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"update-status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel Re-cancel",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"status\": \"cancelled\",\r\n    \"cancelReason\": \"Order is not good.\",\r\n    \"employeeId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/cancel-re-cancel",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"cancel-re-cancel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/delete/3?employeeId={{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"delete",
+										"3"
+									],
+									"query": [
+										{
+											"key": "employeeId",
+											"value": "{{employeeId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/get-detail/{{orderId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"get-detail",
+										"{{orderId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/get-by-customer/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"get-by-customer",
+										"{{customerId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Driver",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/get-by-driver/{{driverId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"get-by-driver",
+										"{{driverId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/order/get-by-company-and-date?orderType=normal&companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"order",
+										"get-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "orderType",
+											"value": "normal"
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Stock",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Steel Bar\",\r\n    \"fileName\": \"123456.jpg\",\r\n    \"price\": 1000,\r\n    \"cost\": 700,\r\n    \"profit\": 300,\r\n    \"quantity\": 100,\r\n    \"source\": \"This is source.\",\r\n    \"note\": \"This is note.\",\r\n    \"barcode\": \"ABC123\",\r\n    \"isVisible\": true,\r\n    \"isUnlimitedQty\": false,\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Steel Bar\",\r\n    \"price\": 1000,\r\n    \"cost\": 800,\r\n    \"profit\": 200,\r\n    \"quantity\": 200,\r\n    \"source\": \"This is source.\",\r\n    \"note\": \"This is note.\",\r\n    \"barcode\": \"ABC123\",\r\n    \"isVisible\": false,\r\n    \"isUnlimitedQty\": false,\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Visible",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isVisible\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/update-visible",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"update-visible"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Image",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/update-image/{{stockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"update-image",
+										"{{stockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/delete/{{stockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"delete",
+										"{{stockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/get-detail/{{stockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"get-detail",
+										"{{stockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company And Category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/get-by-company-and-category?companyId={{companyId}}&categoryId={{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"get-by-company-and-category"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "categoryId",
+											"value": "{{categoryId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/get-list-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"get-list-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Visible List By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/stock/get-visible-list-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"stock",
+										"get-visible-list-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Store Payment",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"detail\": \"This is detail\",\r\n    \"isPaid\": false,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/store-payment/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"store-payment",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"amount\": 1000,\r\n    \"detail\": \"This is detail\",\r\n    \"isPaid\": true,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ap/store-payment/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"store-payment",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/store-payment/delete/{{storePaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"store-payment",
+										"delete",
+										"{{storePaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/store-payment/get-one/{{storePaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"store-payment",
+										"get-one",
+										"{{storePaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/store-payment/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"store-payment",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ap/store-payment/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ap",
+										"store-payment",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Gaming LB",
+			"item": [
+				{
+					"name": "Activity",
+					"item": [
+						{
+							"name": "Get By Company And Filter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/activity/get-by-company-and-filter?companyId={{companyId}}&month=03&year=2023&type=year",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"activity",
+										"get-by-company-and-filter"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "month",
+											"value": "03"
+										},
+										{
+											"key": "year",
+											"value": "2023"
+										},
+										{
+											"key": "type",
+											"value": "year"
+										},
+										{
+											"key": "type",
+											"value": "month",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/activity/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"activity",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Admin\",\r\n    \"email\": \"testadmin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Admin New\",\r\n    \"email\": \"testadminnew@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profit Cost Visible",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isProfitCostVisible\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/update-profit-cost-visible",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"update-profit-cost-visible"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile Photo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/update-profile-photo/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"update-profile-photo",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testadmin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/change-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"password\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/update-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"update-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email Verification Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testadmin@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/email-verification-code",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"email-verification-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/delete/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"delete",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-one/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-one",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-one-detail/{{adminId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-one-detail",
+										"{{adminId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Unassign By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-unassign-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-unassign-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Store Payment Analytics By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-store-payment-analytics-by-company/{{companyId}}?month=03&year=2023&type=year-months",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-store-payment-analytics-by-company",
+										"{{companyId}}"
+									],
+									"query": [
+										{
+											"key": "month",
+											"value": "03"
+										},
+										{
+											"key": "year",
+											"value": "2023"
+										},
+										{
+											"key": "type",
+											"value": "year-months"
+										},
+										{
+											"key": "type",
+											"value": "month-days",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Sales Analytics By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-sales-analytics-by-company/{{companyId}}?month=03&year=2023&type=year-months",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-sales-analytics-by-company",
+										"{{companyId}}"
+									],
+									"query": [
+										{
+											"key": "month",
+											"value": "03"
+										},
+										{
+											"key": "year",
+											"value": "2023"
+										},
+										{
+											"key": "type",
+											"value": "year-months"
+										},
+										{
+											"key": "type",
+											"value": "month-days",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-order-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month&categoryId={{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-order-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										},
+										{
+											"key": "categoryId",
+											"value": "{{categoryId}}"
+										},
+										{
+											"key": "categoryId",
+											"value": "null",
+											"disabled": true
+										},
+										{
+											"key": "categoryId",
+											"value": "0",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Store Payment Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-store-payment-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-store-payment-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Collected Payment Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-collected-payment-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-collected-payment-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Customer Debt Amounts By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-customer-debt-amounts-by-company-and-date?companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-customer-debt-amounts-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Dashboard Stats By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-dashboard-stats-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-dashboard-stats-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/admin/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"admin",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Backup Restore",
+					"item": [
+						{
+							"name": "Backup Database",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/backup-restore/backup-database",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"backup-restore",
+										"backup-database"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Backup Database By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/backup-restore/backup-database-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"backup-restore",
+										"backup-database-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Restore Database",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/achieve_oms-backup_20230430091850.sequelize"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/backup-restore/restore-database",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"backup-restore",
+										"restore-database"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Test Category\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Test Category\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/delete/{{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"delete",
+										"{{categoryId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/get-one/{{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"get-one",
+										"{{categoryId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Of GL",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/get-all-of-gl",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"get-all-of-gl"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/// Website APIs ///",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/category/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"category",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CMS Page",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"about-us\",\r\n    \"text\": \"This is about us text.\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"type\": \"about-us\",\r\n    \"text\": \"This is about us text.\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/delete/{{cmsPageId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"delete",
+										"{{cmsPageId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/get-one/{{cmsPageId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"get-one",
+										"{{cmsPageId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/get-by-type?companyId={{companyId}}&type={{cmsPageType}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"get-by-type"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "type",
+											"value": "{{cmsPageType}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set By Type",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"about-us\",\r\n    \"text\": \"This is about us text.\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/set-by-type",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"set-by-type"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/// Website APIs /// Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Type Of GL",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/cms-page/get-by-type-of-gl/{{cmsPageType}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"cms-page",
+										"get-by-type-of-gl",
+										"{{cmsPageType}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Collected Payment",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"amounType\": \"dollar\",\r\n    \"date\": \"2023-01-01\",\r\n    \"description\": \"This is description.\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/collected-payment/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"collected-payment",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"amount\": 1000,\r\n    \"amounType\": \"lebanese\",\r\n    \"date\": \"2023-01-01\",\r\n    \"description\": \"This is description.\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/collected-payment/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"collected-payment",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/collected-payment/delete/{{collectedPaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"collected-payment",
+										"delete",
+										"{{collectedPaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/collected-payment/get-one/{{collectedPaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"collected-payment",
+										"get-one",
+										"{{collectedPaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/collected-payment/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"collected-payment",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/collected-payment/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"collected-payment",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/collected-payment/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"collected-payment",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Company",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Company\",\r\n    \"detail\": \"Restaurant\",\r\n    \"licenseExpiryDate\": \"2023-01-01\",\r\n    \"adminId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Company New\",\r\n    \"detail\": \"Restaurant New\",\r\n    \"licenseExpiryDate\": \"2024-01-01\",\r\n    \"adminId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Deleted",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isDeleted\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/update-deleted",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"update-deleted"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profit Cost Visible",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isProfitCostVisible\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/update-profit-cost-visible",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"update-profit-cost-visible"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Logo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/update-logo/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"update-logo",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/delete/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"delete",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/get-one/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"get-one",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Profit Cost Visible",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/get-one-profit-cost-visible/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"get-one-profit-cost-visible",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Deleted",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/get-by-deleted/{{companyIsDeleted}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"get-by-deleted",
+										"{{companyIsDeleted}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/company/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"company",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Contact Us",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Customer\",\r\n    \"email\": \"testcustomer@gmail.com\",\r\n    \"subject\": \"Test Subject\",\r\n    \"message\": \"This is contact us message.\",\r\n    \"isRead\": false,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Customer\",\r\n    \"email\": \"testcustomer@gmail.com\",\r\n    \"subject\": \"Test Subject\",\r\n    \"message\": \"This is contact us message.\",\r\n    \"isRead\": true,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/delete/{{contactUsId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"delete",
+										"{{contactUsId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/get-one/{{contactUsId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"get-one",
+										"{{contactUsId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/// Website APIs ///",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Of GL",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Customer\",\r\n    \"email\": \"testcustomer@gmail.com\",\r\n    \"subject\": \"Test Subject\",\r\n    \"message\": \"This is contact us message.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/contact-us/create-of-gl",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"contact-us",
+										"create-of-gl"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Custom Variable",
+					"item": [
+						{
+							"name": "Update Login Background",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/custom-variable/update-login-background",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"custom-variable",
+										"update-login-background"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Login Background",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/custom-variable/get-login-background",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"custom-variable",
+										"get-login-background"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/custom-variable/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"custom-variable",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Customer\",\r\n    \"email\": \"testcustomer@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Customer New\",\r\n    \"email\": \"testcustomernew@gmail.com\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"password\": \"123456\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/delete/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"delete",
+										"{{customerId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/get-one/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"get-one",
+										"{{customerId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Block",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isBlocked\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/update-block",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"update-block"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/// Website APIs ///",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Customer\",\r\n    \"email\": \"testcustomer@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Data",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Customer updated\",\r\n    \"email\": \"testcustomerupdated@gmail.com\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/update-data",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"update-data"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testcustomer@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email Verification Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testcustomer@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/email-verification-code",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"email-verification-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1\",\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/change-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"1\",\r\n    \"password\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/update-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"update-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Email Verified",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isEmailVerified\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/update-email-verified",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"update-email-verified"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Home Data Of GL",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer/get-home-data-of-gl",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer",
+										"get-home-data-of-gl"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Customer Debt",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"description\": \"This is description.\",\r\n    \"customerId\": 1,\r\n    \"companyId\": 1,\r\n    \"employeeId\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer-debt/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer-debt",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"amount\": 2000,\r\n    \"description\": \"This is description new.\",\r\n    \"customerId\": 1,\r\n    \"companyId\": 1,\r\n    \"employeeId\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer-debt/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer-debt",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer-debt/delete/{{customerDebtId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer-debt",
+										"delete",
+										"{{customerDebtId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer-debt/get-one/{{customerDebtId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer-debt",
+										"get-one",
+										"{{customerDebtId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer-debt/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer-debt",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer-debt/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer-debt",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/customer-debt/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"customer-debt",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Driver",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Driver\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"barcode\": \"ABC123\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/driver/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"driver",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Driver New\",\r\n    \"phone\": \"+123 456 789\",\r\n    \"address\": \"Street 123, ABC\",\r\n    \"city\": \"XYZ\",\r\n    \"barcode\": \"ABC123\",\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/driver/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"driver",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/driver/delete/{{driverId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"driver",
+										"delete",
+										"{{driverId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/driver/get-one/{{driverId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"driver",
+										"get-one",
+										"{{driverId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/driver/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"driver",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/driver/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"driver",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/driver/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"driver",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Employee",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Employee\",\r\n    \"email\": \"testemployee@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test Employee New\",\r\n    \"email\": \"testemployeenew@gmail.com\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile Photo",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/update-profile-photo/{{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"update-profile-photo",
+										"{{employeeId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testemployee@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email Verification Code",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"testemployee@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/email-verification-code",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"email-verification-code"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/change-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"change-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Password",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"password\": \"456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/update-password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"update-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/delete/{{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"delete",
+										"{{employeeId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/get-one/{{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"get-one",
+										"{{employeeId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/employee/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"employee",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "FAQ",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question\": \"This is test question.\",\r\n    \"answer\": \"This is test answer detail.\",\r\n    \"sortNumber\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"question\": \"This is test question updated.\",\r\n    \"answer\": \"This is test answer detail updated.\",\r\n    \"sortNumber\": 1,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/delete/{{faqId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"delete",
+										"{{faqId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/get-one/{{faqId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"get-one",
+										"{{faqId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Sorted",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/get-all-sorted",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"get-all-sorted"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Sort Numbers",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"faqIds\": [\r\n        1,\r\n        2\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/update-sort-numbers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"update-sort-numbers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/// Website APIs ///",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Of GL",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/faq/get-all-of-gl",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"faq",
+										"get-all-of-gl"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Favorite Stock",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stockId\": 1,\r\n    \"customerId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"stockId\": 1,\r\n    \"customerId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/delete/{{favoriteStockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"delete",
+										"{{favoriteStockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/get-one/{{favoriteStockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"get-one",
+										"{{favoriteStockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/// Website APIs ///",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Of GL",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stockId\": 1,\r\n    \"customerId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/favorite-stock/set-of-gl",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"favorite-stock",
+										"set-of-gl"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Note Reminder",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"note\": \"This is note text.\",\r\n    \"to\": \"This is to text.\",\r\n    \"dueDate\": \"2023-01-01\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/note-reminder/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"note-reminder",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"note\": \"This is note text updated.\",\r\n    \"to\": \"This is to text updated.\",\r\n    \"dueDate\": \"2023-01-01\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/note-reminder/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"note-reminder",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/note-reminder/delete/{{noteReminderId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"note-reminder",
+										"delete",
+										"{{noteReminderId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/note-reminder/get-one/{{noteReminderId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"note-reminder",
+										"get-one",
+										"{{noteReminderId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/note-reminder/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"note-reminder",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/note-reminder/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"note-reminder",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/note-reminder/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"note-reminder",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"customerId\": 1,\r\n    \"driverId\": 1,\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1,\r\n    \"note\": \"This is note.\",\r\n    \"type\": \"normal\",\r\n    \"isAmountNotPaid\": false,\r\n    \"orderItems\": [\r\n        {\r\n            \"stockId\": 1,\r\n            \"quantity\": 5,\r\n            \"discount\": 20\r\n        },\r\n        {\r\n            \"stockId\": 2,\r\n            \"quantity\": 3,\r\n            \"discount\": 0\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"status\": \"completed\",\r\n    \"employeeId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/update-status",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"update-status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel Re-cancel",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"status\": \"cancelled\",\r\n    \"cancelReason\": \"Order is not good.\",\r\n    \"employeeId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/cancel-re-cancel",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"cancel-re-cancel"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/delete/3?employeeId={{employeeId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"delete",
+										"3"
+									],
+									"query": [
+										{
+											"key": "employeeId",
+											"value": "{{employeeId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/get-detail/{{orderId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"get-detail",
+										"{{orderId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Customer",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/get-by-customer/{{customerId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"get-by-customer",
+										"{{customerId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Driver",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/get-by-driver/{{driverId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"get-by-driver",
+										"{{driverId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company And Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/get-by-company-and-date?orderType=normal&companyId={{companyId}}&date=2023-01-01&fromDate=2023-01-01&toDate=2023-01-31&type=this-month",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"get-by-company-and-date"
+									],
+									"query": [
+										{
+											"key": "orderType",
+											"value": "normal"
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01"
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31"
+										},
+										{
+											"key": "type",
+											"value": "today",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "yesterday",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "7-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "30-days",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month"
+										},
+										{
+											"key": "type",
+											"value": "last-month",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date-range",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "custom-date",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company Date And Filter",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/get-by-company-date-and-filter?companyId={{companyId}}&type=this-month&status=in-progress",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"get-by-company-date-and-filter"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "date",
+											"value": "2023-01-01",
+											"disabled": true
+										},
+										{
+											"key": "fromDate",
+											"value": "2023-01-01",
+											"disabled": true
+										},
+										{
+											"key": "toDate",
+											"value": "2023-01-31",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "this-month",
+											"description": "today | yesterday | 7-days | 30-days | this-month | last-month | custom-date-range | custom-date"
+										},
+										{
+											"key": "status",
+											"value": "in-progress",
+											"description": "in-progress | completed | cancelled"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/order/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"order",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Slider",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fileName\": \"123456.jpg\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"fileName\": \"123456.jpg\",\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update File",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/update-file/{{sliderId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"update-file",
+										"{{sliderId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Multiple By Company",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": [
+												"/C:/Users/Next Level Software/Downloads/New folder/Images/6231cea8c0ce1de489f0abe86bbc5a80.webp",
+												"/C:/Users/Next Level Software/Downloads/New folder/Images/104527.jpg",
+												"/C:/Users/Next Level Software/Downloads/New folder/Images/1536752725Accountant.jpg"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/add-multiple-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"add-multiple-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/delete/{{stockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"delete",
+										"{{stockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/slider/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"slider",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Stock",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Steel Bar\",\r\n    \"fileName\": \"123456.jpg\",\r\n    \"price\": 1000,\r\n    \"cost\": 700,\r\n    \"profit\": 300,\r\n    \"quantity\": 100,\r\n    \"source\": \"This is source.\",\r\n    \"note\": \"This is note.\",\r\n    \"barcode\": \"ABC123\",\r\n    \"isVisible\": true,\r\n    \"isUnlimitedQty\": false,\r\n    \"isVisibleToWebsite\": false,\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"title\": \"Steel Bar\",\r\n    \"price\": 1000,\r\n    \"cost\": 800,\r\n    \"profit\": 200,\r\n    \"quantity\": 200,\r\n    \"source\": \"This is source.\",\r\n    \"note\": \"This is note.\",\r\n    \"barcode\": \"ABC123\",\r\n    \"isVisible\": false,\r\n    \"isUnlimitedQty\": false,\r\n    \"isVisibleToWebsite\": false,\r\n    \"employeeId\": 1,\r\n    \"companyId\": 1,\r\n    \"categoryId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Visible",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isVisible\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/update-visible",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"update-visible"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Visible To Website",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isVisibleToWebsite\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/update-visible-to-website",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"update-visible-to-website"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Image",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/update-image/{{stockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"update-image",
+										"{{stockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/delete/{{stockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"delete",
+										"{{stockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One Detail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-detail/{{stockId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-detail",
+										"{{stockId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company And Category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-by-company-and-category?companyId={{companyId}}&categoryId={{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-by-company-and-category"
+									],
+									"query": [
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										},
+										{
+											"key": "categoryId",
+											"value": "{{categoryId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-list-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-list-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Visible List By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-visible-list-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-visible-list-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/// Website APIs ///",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Category Of GL",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/stock/get-by-category-of-gl?categoryId={{categoryId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"stock",
+										"get-by-category-of-gl"
+									],
+									"query": [
+										{
+											"key": "categoryId",
+											"value": "{{categoryId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Store Payment",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"detail\": \"This is detail\",\r\n    \"isPaid\": false,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/store-payment/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"store-payment",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"amount\": 1000,\r\n    \"detail\": \"This is detail\",\r\n    \"isPaid\": true,\r\n    \"companyId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/gl/store-payment/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"store-payment",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/store-payment/delete/{{storePaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"store-payment",
+										"delete",
+										"{{storePaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get One",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/store-payment/get-one/{{storePaymentId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"store-payment",
+										"get-one",
+										"{{storePaymentId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/store-payment/get-all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"store-payment",
+										"get-all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Company",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/store-payment/get-by-company/{{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"store-payment",
+										"get-by-company",
+										"{{companyId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Filter Web",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/gl/store-payment/get-by-filter-web?page=1&size=10&sort=createdAt&order=DESC&search&companyId={{companyId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"gl",
+										"store-payment",
+										"get-by-filter-web"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt"
+										},
+										{
+											"key": "order",
+											"value": "DESC"
+										},
+										{
+											"key": "search",
+											"value": null
+										},
+										{
+											"key": "companyId",
+											"value": "{{companyId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/file/{{fileName}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"{{fileName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Next Level Software/Downloads/Images/annie-spratt-FGLl9Rr4oC4-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/file/upload",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Next Level Software/Downloads/yana-gorbunova-288pNdCOetg-unsplash.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/file/remove/{{fileName}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"remove",
+								"{{fileName}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVWYWx1ZSI6ImFkbWluQGFjaGlldmVvbXMuY29tIiwiaWF0IjoxNjg4OTg1NzYwLCJleHAiOjE2ODk1OTA1NjB9.nytSA9cnqNf5s3Wz8TtxsxV-3BuPvxjDY0Sp9NvbevA",
+			"type": "string"
+		},
+		{
+			"key": "activityId",
+			"value": "1"
+		},
+		{
+			"key": "adminId",
+			"value": "1"
+		},
+		{
+			"key": "customerId",
+			"value": "1"
+		},
+		{
+			"key": "driverId",
+			"value": "1"
+		},
+		{
+			"key": "employeeId",
+			"value": "1"
+		},
+		{
+			"key": "orderId",
+			"value": "1"
+		},
+		{
+			"key": "fileName",
+			"value": "file-1678968873537.jpg"
+		},
+		{
+			"key": "stockId",
+			"value": "1"
+		},
+		{
+			"key": "orderStatus",
+			"value": "in-progress"
+		},
+		{
+			"key": "companyId",
+			"value": "1"
+		},
+		{
+			"key": "storePaymentId",
+			"value": "1"
+		},
+		{
+			"key": "companyIsDeleted",
+			"value": "true"
+		},
+		{
+			"key": "collectedPaymentId",
+			"value": "1"
+		},
+		{
+			"key": "noteReminderId",
+			"value": "1"
+		},
+		{
+			"key": "customerDebtId",
+			"value": "1"
+		},
+		{
+			"key": "categoryId",
+			"value": "1"
+		},
+		{
+			"key": "liveUrl",
+			"value": "https://achieveoms.com:3000",
+			"type": "string"
+		},
+		{
+			"key": "sliderId",
+			"value": "1"
+		},
+		{
+			"key": "cmsPageId",
+			"value": "1"
+		},
+		{
+			"key": "contactUsId",
+			"value": "1"
+		},
+		{
+			"key": "faqId",
+			"value": "1"
+		},
+		{
+			"key": "favoriteStockId",
+			"value": "1"
+		},
+		{
+			"key": "cmsPageType",
+			"value": "about-us"
+		}
+	]
+}

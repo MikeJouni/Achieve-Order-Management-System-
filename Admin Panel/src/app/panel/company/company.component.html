@@ -1,0 +1,266 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  {{'Company_Page.COMPANY' | translate}}
+  <button type="button" class="btn btn-primary btn-round d-block" (click)="open(createModal)">
+    <span class="ion ion-md-add"></span>&nbsp; {{'Company_Page.CREATE_COMPANY' | translate}}
+  </button>
+</h4>
+<ul class="nav nav-tabs nav-responsive-xl">
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" [ngClass]="{active: companyStatus === false}"
+      (click)="companyStatus=false;loadData()">{{'Company_Page.ACTIVE' | translate}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" [ngClass]="{active: companyStatus === true}"
+      (click)="companyStatus=true;loadData()">{{'Company_Page.DELETED' | translate}}
+    </a>
+  </li>
+</ul>
+<div class="card">
+  <!-- Table controls -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{'Company_Page.PER_PAGE' | translate}}: &nbsp;
+        <select [(ngModel)]="perPage" (change)="update()" class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [10, 20, 30, 40, 50]">
+            {{ limit }}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" [(ngModel)]="filterVal" (input)="currentPage = 1; update()"
+          class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+          placeholder="{{'Company_Page.SEARCH' | translate}}" />
+      </div>
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0" />
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('name')">
+            {{'Company_Page.NAME' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'name'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('detail')">
+            {{'Company_Page.DETAIL' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'detail'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <!-- <th class="text-center">{{'Company_Page.TYPE' | translate}}</th> -->
+          <th class="text-center">{{'Company_Page.ADMIN' | translate}}</th>
+          <th class="text-center">{{'Company_Page.LICENSE_EXPIRY' | translate}}</th>
+          <th class="text-center">{{'Company_Page.DELETE' | translate}}</th>
+          <th class="text-center">{{'Company_Page.ACTIONS' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of companyArray;index as i">
+          <td class="text-center py-2">{{ i + 1 }}</td>
+          <td class="align-middle py-2">{{ item?.name }}</td>
+          <td class="align-middle py-2">{{ item?.detail }}</td>
+          <!-- <td class="align-middle py-2">{{ item?.type | titlecase}}</td> -->
+          <td *ngIf="item.adminId" class="align-middle text-center py-2"><button class="btn btn-dark btn-sm"
+              routerLink='/admin-detail/{{item?.adminId}}'>{{'Company_Page.VIEW' | translate}}</button></td>
+          <td class="text-center" *ngIf="!item.adminId">-</td>
+          <td class="align-middle py-2 text-center">
+            <div class="p-1" [ngClass]="
+            calculateDiff(item?.licenseExpiryDate)?.type ?'badge badge-danger w-75':
+            !calculateDiff(item?.licenseExpiryDate)?.type ?'badge badge-success w-75':''">
+              {{calculateDiff(item?.licenseExpiryDate)?.type?
+              ('General.EXPIRED' | translate) :
+              calculateDiff(item?.licenseExpiryDate)?.days + ' ' + ('General.DAYS_LEFT' | translate)}}
+            </div>
+          </td>
+          <td class="align-middle py-2 text-center">
+            <label class="switcher text-center switcher-danger">
+              <input type="checkbox" [(ngModel)]="item.isDeleted" (change)="onChange(item.id, $event)"
+                class="switcher-input" />
+              <span class="switcher-indicator">
+                <span class="switcher-yes">
+                  <span class="ion ion-md-checkmark"></span>
+                </span>
+                <span class="switcher-no">
+                  <span class="ion ion-md-close"></span>
+                </span>
+              </span>
+              <span class="switcher-label"></span>
+            </label>
+          </td>
+          <td class="text-nowrap align-middle p-2 text-center">
+            <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-info"
+              ngbTooltip="{{'General.EDIT' | translate}}" (click)="open(editModal, item, i);"><i
+                class="ion ion-md-create"></i></a>
+            <!-- <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-danger"
+              ngbTooltip="{{'General.DELETE' | translate}}" (click)="companyId=item.id;deleteDialog.show()"><i class="ion ion-md-trash"></i></a> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">{{'Company_Page.PAGE' | translate}} {{ currentPage }}
+          {{'Company_Page.OF' | translate}} {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems" [pageSize]="perPage" [(page)]="currentPage" [maxSize]="1"
+          (pageChange)="update()" size="sm"
+          class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>
+<swal #deleteDialog
+  [options]="{type: 'warning', title:('General.ARE_YOU_SURE' | translate), customClass: translationService?.isRTL ? 'swal-rtl' : 'swal-ltr',showCancelButton:  true, confirmButtonText: ('General.DELETE' | translate), cancelButtonText: ('General.CANCEL' | translate), showCloseButton: true, confirmButtonClass: 'btn btn-lg btn-warning m-2', cancelButtonClass: 'btn btn-lg btn-default m-2'}"
+  (confirm)="deleteCompany()"></swal>
+<!-- Add user modal template -->
+<ng-template #createModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{'Company_Page.CREATE_COMPANY' | translate}}<br />
+    </h5>
+    <button type="button" class="close" (click)="c('Close click');">
+      &times;
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">{{'Company_Page.NAME' | translate}}</label>
+        <input type="text" class="form-control" placeholder="{{'Company_Page.TEST_COMPANY' | translate}}"
+          [(ngModel)]="companyData.name" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">{{'Company_Page.DETAIL' | translate}}</label>
+        <textarea rows="5" class="form-control" placeholder="{{'Company_Page.SOME_COMPANY_DETAILS' | translate}}"
+          [(ngModel)]="companyData.detail"></textarea>
+      </div>
+    </div>
+    <!-- <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">{{'Company_Page.TYPE' | translate}}</label>
+        <ng-select [items]="selectType" class="p-0 m-0" bindLabel="label" bindValue="value"
+          [(ngModel)]="companyData.type" name="type"
+          placeholder="{{'Company_Page.TYPE' | translate}}"></ng-select>
+      </div>
+    </div> -->
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">{{'Company_Page.ADMIN' | translate}}</label>
+        <ng-select [items]="unAssignAdminsArray" class="p-0 m-0" bindLabel="name" bindValue="id"
+          [(ngModel)]="companyData.adminId" name="customer"
+          placeholder="{{'Company_Page.SELECT_ADMIN' | translate}}"></ng-select>
+      </div>
+      <div class="form-group col">
+        <label class="form-label w-100">{{'Company_Page.LICENSE_EXPIRY_DATE' | translate}}</label>
+        <form class="form-inline w-100">
+          <div class="form-group w-100">
+            <div class="input-group w-100">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker [(ngModel)]="unformattedDate"
+                #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="input-group-text" (click)="d.toggle()" type="button">
+                  <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="c('Close click');">
+      {{'Company_Page.CLOSE' | translate}}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="createCompany()" [disabled]="btnLoading">
+      <span class="my-btn-loader">
+        {{'Company_Page.CREATE' | translate}}
+        <span *ngIf="btnLoading" class="my-loader"></span>
+      </span>
+    </button>
+  </div>
+</ng-template>
+<!-- /add user modal template -->
+<!-- edit user modal template -->
+<ng-template #editModal let-c="close" let-d="dismiss">
+  <div>
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'Company_Page.EDIT_COMPANY' | translate}}<br />
+      </h5>
+      <button type="button" class="close" (click)="c('Close click');">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Company_Page.NAME' | translate}}</label>
+          <input type="text" class="form-control" placeholder="Test Company" [(ngModel)]="companyData.name" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Company_Page.DETAIL' | translate}}</label>
+          <textarea rows="5" class="form-control" placeholder="Some company details"
+            [(ngModel)]="companyData.detail"></textarea>
+        </div>
+      </div>
+      <!-- <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Company_Page.TYPE' | translate}}</label>
+          <ng-select [items]="selectType" class="p-0 m-0" bindLabel="label" bindValue="value"
+            [(ngModel)]="companyData.type" name="type"
+            placeholder="{{'Company_Page.TYPE' | translate}}"></ng-select>
+        </div>
+      </div> -->
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Company_Page.ADMIN' | translate}}</label>
+          <ng-select [items]="unAssignAdminsArray" class="p-0 m-0" bindLabel="name" bindValue="id"
+            [(ngModel)]="companyData.adminId" name="customer" placeholder="Select Admin"></ng-select>
+        </div>
+        <div class="form-group col">
+          <label class="form-label w-100">{{'Company_Page.LICENSE_EXPIRY_DATE' | translate}}</label>
+          <form class="form-inline w-100">
+            <div class="form-group w-100">
+              <div class="input-group w-100">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+                  [(ngModel)]="unformattedDate" #d="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="input-group-text" (click)="d.toggle()" type="button">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click'); companyDataClear()">
+        {{'Company_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="updateCompany()" [disabled]="btnLoading">
+        <span class="my-btn-loader">
+          {{'Company_Page.SAVE_CHANGES' | translate}}
+          <span *ngIf="btnLoading" class="my-loader"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- /edit user modal template -->

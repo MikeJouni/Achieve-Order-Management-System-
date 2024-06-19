@@ -1,0 +1,53 @@
+<div class="card mb-4">
+  <h6 class="card-header">
+    {{'Activity_Page.ACTIVITIES' | translate}}
+  </h6>
+  <div class="ui-bordered px-4 pt-4 mb-4">
+    <div class="form-row align-items-center">
+      <div class="col-md mb-4">
+        <label class="form-label">{{'Activity_Page.TYPE' | translate}}</label>
+        <select class="custom-select" [(ngModel)]="bindType">
+          <option *ngFor="let item of selectType" [value]="item.value">
+            {{item.label | translate}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md mb-4">
+        <label class="form-label">{{'Activity_Page.YEAR' | translate}}</label>
+        <select class="custom-select" [(ngModel)]="bindYear">
+          <option *ngFor="let item of selectYear" [value]="item.value">{{item.label}}</option>
+        </select>
+      </div>
+      <div class="col-md mb-4" *ngIf="bindType == '&type=month'">
+        <label class="form-label">{{'Activity_Page.MONTH' | translate}}</label>
+        <select class="custom-select" [(ngModel)]="bindMonth">
+          <option *ngFor="let item of selectMonth" [value]="item.value">
+            {{item.label | translate}}
+          </option>
+        </select>
+      </div>
+      <div class="col-md col-xl-2 mb-4">
+        <label class="form-label d-none d-md-block">&nbsp;</label>
+        <button type="button" class="btn btn-dark btn-block" (click)="getActivity()">
+          {{'Activity_Page.SHOW' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card" *ngFor="let item of activityArray">
+    <ul class="list-group">
+      <div class="row">
+        <div class="col-9">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{translationService?.isRTL ? item?.messageAr : item?.messageEn}}
+          </li>
+        </div>
+        <div class="col-3">
+          <li class="list-group-item d-flex justify-content-between align-items-center">{{item?.createdAt |
+            date:'medium'}}
+          </li>
+        </div>
+      </div>
+    </ul>
+  </div>
+</div>

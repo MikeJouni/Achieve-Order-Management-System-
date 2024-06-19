@@ -1,0 +1,20 @@
+i {
+    font-size: 1.5rem;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 05px 15px;
+    transition: 0.7s;
+}
+
+i:hover {
+    cursor: pointer;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+}
+img {
+    width: -webkit-fill-available;
+    height: 195px;
+    border-radius: 5px;
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="en" class="default-style">
+
+<head>
+  <base href="/">
+  <title>Achieve Order Management System</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Main font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet">
+
+  <!-- Font Awesome Icons 5.5.0 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/all.min.css"
+    integrity="sha512-QfDd74mlg8afgSqm3Vq2Q65e9b3xMhJB4GZ9OcHDVy1hZ6pqBJPWWnMsKDXM7NINoKqJANNGBuVRIpIJ5dogfA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/brands.min.css"
+    integrity="sha512-TZMjdKefpzE+4P2KJdNtm7NXY7dV+PO94hygRDVOosM46OIkGFAoRLOAqp8K1BTovU7/RUd1owfUdK3ymGCNag=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/fontawesome.min.css"
+    integrity="sha512-t5T3Rc5ovESH1DDzUmPb7WDF91QvYVzP26HdUqABGy26RIiRRp5S4ygqEWDQbWmUqgMdUISpaESbM/iopIWHIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/regular.min.css"
+    integrity="sha512-zBjB1bcvsxh1w41V5Ma16+SnxWhe+GcJTHpTejr2H83jrMX4JR3ze+l/BysyEzb6ucTPqWFc6FdAp52p7m5zBA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/solid.min.css"
+    integrity="sha512-razTDuOSJgNBirA6PsZ3Tk7d2K/qj2/xmwK2/cG6GOyp5b/+iRFV/C0K78nTHuWxrAvjkBCm144LikmvXTQSoQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/svg-with-js.min.css"
+    integrity="sha512-RjHA7wXi74OEE0xZdWo2LZeeTOJzOtzFbLH7LzEEQFrRMBGbphpsPHtpr1ZFyAWB747PODINgdR9IkSLXwTSpQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/v4-shims.min.css"
+    integrity="sha512-qwg+nMRYULOG5KXbAFBPFyVZocKWo/73V+CJH+8wZCOl8XGL5+2kf5YoyiTmGetzJeSx0Kl3dlm8hiaaZ4Sc0Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/js/all.min.js"
+    integrity="sha512-YUwFoN1yaVzHxZ1cLsNYJzVt1opqtVLKgBQ+wDj+JyfvOkH66ck1fleCm8eyJG9O1HpKIf86HrgTXkWDyHy9HA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/js/brands.min.js"
+    integrity="sha512-F7jcdz5jRIEix46lAkeg4yKkdagogId/JhaZZoFIQvNsjhLPwdYAGBxL5/+yDtHNyiOkwOhp58fxL2MBVr9TXg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/js/fontawesome.min.js"
+    integrity="sha512-B2cJf2Q8ZTr/RSsT033cIpk/xyj4bcMQy8Tqso3EaSLimgW/2zSBPD8xstzf5Q2PTpMDQ9JuUoFlmeEbrMorFQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/js/regular.min.js"
+    integrity="sha512-U7Xg6opSCjvWi/oqAwT0r66GiqMLoYtqA2zPVtNQGOlq2Kr72TwOV5+ej4kpdoOgpdfrjQYeB6JUzGAVvHKtfw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/js/solid.min.js"
+    integrity="sha512-4oZHhYaMEZFtAJmoTy4Fp0ZZ0+qdfC8C05Y2Q0hTg1vAYO8mT6rcFYo9HoAP/bkT4wJku3At3Ok0gNPTWeUHYw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/js/v4-shims.min.js"
+    integrity="sha512-MbBIp7VUHm3wxvHkRMqaQup4prDshpEIEQt5FT/Mq6KO8KhOu8zJ29wMfNCJBqMfVgXIUgnl9k5gOWSeXft7yw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Ion Icons 4.4.7 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.4.7/css/ionicons-core.min.css"
+    integrity="sha512-SHJE9Y+w/EZX7ndIlFeE1ueYZPQTwPA2I2oLE9uevtTwP4XABnzivtwAEun8XR7EVRCSmLwtYHdOMSVHidLUZA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.4.7/css/ionicons.min.css"
+    integrity="sha512-CQUzN136OKzdfiZxHASSCGTz6s/hRra8aIlcfLqG24/tGdq0wYtfXkvKzE8kcEfqq1eOm/2uDUMaBlelTHHbtg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Layout helpers -->
+  <script src="assets/vendor/js/layout-helpers.js"></script>
+
+  <!-- Barcode scanner -->
+  <script src="assets/barcode-scanner.js"></script>
+
+
+  <!-- Splash screen -->
+  <style>
+    .app-splash-screen {
+      background: #fff;
+      position: fixed;
+      display: block;
+      z-index: 99999999;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 1;
+      -webkit-transition: opacity .3s;
+      transition: opacity .3s;
+    }
+
+    .app-splash-screen-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      -webkit-animation: appSplashScreenAnimation 1.2s ease-in-out 0s infinite;
+      animation: appSplashScreenAnimation 1.2s ease-in-out 0s infinite;
+    }
+
+    @-webkit-keyframes appSplashScreenAnimation {
+
+      0%,
+      20% {
+        -webkit-transform: translate3d(-50%, -50%, 0) rotateY(0);
+        transform: translate3d(-50%, -50%, 0) rotateY(0);
+      }
+
+      50% {
+        -webkit-transform: translate3d(-50%, -50%, 0) rotateY(180deg);
+        transform: translate3d(-50%, -50%, 0) rotateY(180deg);
+      }
+
+      80%,
+      100% {
+        -webkit-transform: translate3d(-50%, -50%, 0) rotateY(360deg);
+        transform: translate3d(-50%, -50%, 0) rotateY(360deg);
+      }
+    }
+
+    @keyframes appSplashScreenAnimation {
+
+      0%,
+      20% {
+        -webkit-transform: translate3d(-50%, -50%, 0) rotateY(0);
+        transform: translate3d(-50%, -50%, 0) rotateY(0);
+      }
+
+      50% {
+        -webkit-transform: translate3d(-50%, -50%, 0) rotateY(180deg);
+        transform: translate3d(-50%, -50%, 0) rotateY(180deg);
+      }
+
+      80%,
+      100% {
+        -webkit-transform: translate3d(-50%, -50%, 0) rotateY(360deg);
+        transform: translate3d(-50%, -50%, 0) rotateY(360deg);
+      }
+    }
+  </style>
+  <!-- / Splash screen -->
+
+</head>
+
+<body>
+
+  <!-- Splash screen -->
+  <div class="app-splash-screen">
+    <div class="app-splash-screen-content">
+      <div class="ui-w-100">
+        <img src="assets/ahcieve-loading-logo.svg" alt="">
+      </div>
+    </div>
+  </div>
+  <!-- / Splash screen -->
+
+  <!-- App root -->
+  <app-root></app-root>
+  <!-- / App root -->
+
+</body>
+
+</html>

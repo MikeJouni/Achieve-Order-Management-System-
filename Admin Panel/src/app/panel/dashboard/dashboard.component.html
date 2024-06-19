@@ -1,0 +1,411 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  {{'Dashboard_Page.DASHBOARD' | translate}}</h4>
+<div class="card">
+  <div class="card-header">
+    <h5><strong>{{'Dashboard_Page.ORDER_STATS' | translate}}</strong></h5>
+  </div>
+  <div class="card-body">
+    <div class="ui-bordered px-4 pt-4 mb-4">
+      <div class="form-row align-items-center">
+        <div class="col-md mb-4">
+          <div class="row">
+            <div class="col-md"><label class="form-label">{{'General.DATE_FILTER' | translate}}</label></div>
+            <div class="col-md float-right text-right"
+              *ngIf="bindOrderType =='custom-date-range' && fromDate && toDate">({{fromDate?.year + '-' +
+              fromDate?.month + '-' + fromDate?.day}}) - ({{toDate?.year + '-' + toDate?.month + '-' + toDate?.day}})
+            </div>
+          </div>
+          <select class="custom-select" [(ngModel)]="bindOrderType">
+            <option *ngFor="let item of selectOrderType" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md mb-4" *ngIf="bindOrderType !=='custom-date-range'">
+          <label class="form-label">{{'Dashboard_Page.DATE' | translate}}</label>
+          <form class="form-inline w-100">
+            <div class="form-group w-100">
+              <div class="input-group w-100">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker [(ngModel)]="bindOrderDate"
+                  #c="ngbDatepicker"
+                  [disabled]="bindOrderType=='today' || bindOrderType=='yesterday' || bindOrderType=='7-days' || bindOrderType=='30-days' || bindOrderType=='this-month'">
+                <div class="input-group-append">
+                  <button class="input-group-text" (click)="c.toggle()" type="button"
+                    [disabled]="bindOrderType=='today' || bindOrderType=='yesterday' || bindOrderType=='7-days' || bindOrderType=='30-days' || bindOrderType=='this-month'">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md mb-4">
+          <label class="form-label">{{'Dashboard_Page.CATEGORY' | translate}}</label>
+          <ng-select *ngIf="showCategorySelector" [(ngModel)]="categoryId" [items]="categoryArray" class="p-0 m-0" bindLabel="title" bindValue="id"
+             name="driver"
+            placeholder="{{'Dashboard_Page.SELECT_CATEGORY' | translate}}">
+          </ng-select>
+        </div>
+        <button class="btn btn-secondary" *ngIf="bindOrderType =='custom-date-range'"
+          (click)="showRangePickerOrderStats = true">{{'General.CHOOSE_DATE' | translate}}</button>
+        <div class="col-md col-xl-2 mb-4">
+          <label class="form-label d-none d-md-block">&nbsp;</label>
+          <button type="button" class="btn btn-dark btn-block"
+            (click)="getOrderAmountsByCompany()">{{'Dashboard_Page.SHOW' | translate}}</button>
+        </div>
+        <div class="col-md-12 mb-4" *ngIf="showRangePickerOrderStats && bindOrderType =='custom-date-range'">
+          <!-- range picker -->
+          <div class="card-body p-0">
+            <div class="demo-vertical-spacing mt-4 mr-0 pr-0">
+              <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+              </ngb-datepicker>
+              <ng-template #t let-date="date" let-focused="focused">
+                <div class="ngb-range-day"
+                  [ngClass]="{ 'bg-primary text-white': isFrom(date) || isTo(date), 'bg-light ngb-in-range': isHovered(date) || isInside(date) }"
+                  (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                  {{ date.day }}
+                </div>
+              </ng-template>
+
+              <!-- <pre>From: {{ fromDate | json }} </pre>
+              <pre>To: {{ toDate | json }} </pre> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-xl-4">
+        <div class="card card-sky-blue mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <!-- <div class="lnr lnr-cart display-4 text-success"></div> -->
+              <div class="ml-3">
+                <div class="text-white font-weight-bold">{{'Dashboard_Page.TOTAL_SALES' | translate}}</div>
+                <div class="text-large text-white" *ngIf="orderStats?.amount>0">{{numberWithCommas(orderStats?.amount)}}
+                </div>
+                <div class="text-large text-white" *ngIf="orderStats?.amount==0">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-xl-4">
+        <div class="card card-cost mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <!-- <div class="lnr lnr-earth display-4 text-info"></div> -->
+              <div class="ml-3">
+                <div class="text-white font-weight-bold">{{'Dashboard_Page.COST' | translate}}</div>
+                <div class="text-large text-white" *ngIf="orderStats?.cost>0">{{numberWithCommas(orderStats?.cost)}}
+                </div>
+                <div class="text-large text-white" *ngIf="orderStats?.cost==0">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-xl-4">
+        <div class="card card-green mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <!-- <div class="lnr lnr-gift display-4 text-danger"></div> -->
+              <div class="ml-3">
+                <div class="text-white font-weight-bold">{{'Dashboard_Page.PROFIT' | translate}}</div>
+                <div class="text-large text-white" *ngIf="orderStats?.profit>0">{{numberWithCommas(orderStats?.profit)}}
+                </div>
+                <div class="text-large text-white" *ngIf="orderStats?.profit==0">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">
+    <h5><strong>{{'Dashboard_Page.STORE_EXPENSES_STATS' | translate}}</strong></h5>
+  </div>
+  <div class="card-body">
+    <div class="ui-bordered px-4 pt-4 mb-4">
+      <div class="form-row align-items-center">
+        <div class="col-md mb-4">
+          <div class="row">
+            <div class="col-md"><label class="form-label">{{'General.DATE_FILTER' | translate}}</label></div>
+            <div class="col-md float-right text-right"
+              *ngIf="bindOrderType =='custom-date-range' && fromDate && toDate">({{fromDate?.year + '-' +
+              fromDate?.month + '-' + fromDate?.day}}) - ({{toDate?.year + '-' + toDate?.month + '-' + toDate?.day}})
+            </div>
+          </div>
+          <select class="custom-select" [(ngModel)]="bindOrderType">
+            <option *ngFor="let item of selectOrderType" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <!-- date picker -->
+        <div class="col-md mb-4" *ngIf="bindOrderType !=='custom-date-range'">
+          <label class="form-label">{{'Dashboard_Page.DATE' | translate}}</label>
+          <form class="form-inline w-100">
+            <div class="form-group w-100">
+              <div class="input-group w-100">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker [(ngModel)]="bindOrderDate"
+                  #d="ngbDatepicker"
+                  [disabled]="bindOrderType=='today' || bindOrderType=='yesterday' || bindOrderType=='7-days' || bindOrderType=='30-days' || bindOrderType=='this-month'">
+                <div class="input-group-append">
+                  <button class="input-group-text" (click)="d.toggle()" type="button"
+                    [disabled]="bindOrderType=='today' || bindOrderType=='yesterday' || bindOrderType=='7-days' || bindOrderType=='30-days' || bindOrderType=='this-month'">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <button class="btn btn-secondary" *ngIf="bindOrderType =='custom-date-range'"
+          (click)="showRangePickerStoreStats = true">{{'General.CHOOSE_DATE' | translate}}</button>
+        <div class="col-md col-xl-2 mb-4">
+          <label class="form-label d-none d-md-block">&nbsp;</label>
+          <button type="button" class="btn btn-dark btn-block"
+            (click)="getStorePaymentAmountsByCompany()">{{'Dashboard_Page.SHOW' | translate}}</button>
+        </div>
+        <div class="col-md-12 mb-4" *ngIf="bindOrderType =='custom-date-range' && showRangePickerStoreStats">
+          <!-- range picker -->
+          <div class="card-body p-0">
+            <div class="demo-vertical-spacing mt-4 mr-0 pr-0">
+              <ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+              </ngb-datepicker>
+              <ng-template #t let-date="date" let-focused="focused">
+                <div class="ngb-range-day"
+                  [ngClass]="{ 'bg-primary text-white': isFrom(date) || isTo(date), 'bg-light ngb-in-range': isHovered(date) || isInside(date) }"
+                  (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                  {{ date.day }}
+                </div>
+              </ng-template>
+
+              <!-- <pre>From: {{ fromDate | json }} </pre>
+              <pre>To: {{ toDate | json }} </pre> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-xl-6">
+        <div class="card card-green mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="ml-3">
+                <div class="text-white font-weight-bold">{{'Dashboard_Page.PAID' | translate}}</div>
+                <div class="text-large text-white" *ngIf="storePaymentsStats?.paid>0">
+                  {{numberWithCommas(storePaymentsStats?.paid)}}</div>
+                <div class="text-large text-white" *ngIf="storePaymentsStats?.paid==0">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-6">
+        <div class="card card-orange mb-4">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <div class="lnr lnr-earth display-4 text-info"></div>
+              <div class="ml-3">
+                <div class="text-white font-weight-bold">{{'Dashboard_Page.NOT_PAID' | translate}}</div>
+                <div class="text-large text-white" *ngIf="storePaymentsStats?.unPaid>0">
+                  {{numberWithCommas(storePaymentsStats?.unPaid)}}</div>
+                <div class="text-large text-white" *ngIf="storePaymentsStats?.unPaid==0">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">
+    <h5><strong>{{'Dashboard_Page.SALES_ANALYTICS' | translate}}</strong></h5>
+  </div>
+  <div class="card-body">
+    <div class="ui-bordered px-4 pt-4 mb-4">
+      <div class="form-row align-items-center">
+        <div class="col-md mb-4">
+          <label class="form-label">{{'General.DATE_FILTER' | translate}}</label>
+          <select class="custom-select" [(ngModel)]="bindType">
+            <option *ngFor="let item of selectType" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md mb-4">
+          <label class="form-label">{{'Dashboard_Page.YEAR' | translate}}</label>
+          <select class="custom-select" [(ngModel)]="bindYear">
+            <option *ngFor="let item of selectYear" [value]="item.value">{{item.label}}</option>
+          </select>
+        </div>
+        <div class="col-md mb-4" *ngIf="bindType == '&type=month-days'">
+          <label class="form-label">{{'Dashboard_Page.MONTH' | translate}}</label>
+          <select class="custom-select" [(ngModel)]="bindMonth">
+            <option *ngFor="let item of selectMonth" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md col-xl-2 mb-4">
+          <label class="form-label d-none d-md-block">&nbsp;</label>
+          <button type="button" class="btn btn-dark btn-block"
+            (click)="getSalesAnalyticsWithFilter()">{{'Dashboard_Page.SHOW' | translate}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="row no-gutters row-bordered">
+        <div class="card-body">
+          <!-- for normal compnay -->
+          <div *ngIf="show1Chart && companyType == 'normal'" style="height: 210px; width:100%">
+            <canvas baseChart height="210" style="width: 100%;color: black;" [datasets]="chart1Data"
+              [labels]="chart1Lables" [chartType]="'line'"></canvas>
+          </div>
+
+          <!-- for bakery -->
+          <div *ngIf="show1Chart && companyType == 'bakery'" style="height: 210px; width:100%">
+            <canvas baseChart height="210" style="width: 100%;color: black;" [datasets]="chart1DataBakery"
+              [labels]="chart1Lables" [chartType]="'line'"></canvas>
+          </div>
+
+          <!-- <div *ngIf="show1Chart" style="height: 210px; width:100%">
+            <div style="height: 250px">
+              <x-chartist [data]="chart2Data" [type]="'Line'" [options]="options1">
+              </x-chartist>
+            </div>
+          </div> -->
+          <!-- <canvas baseChart height="210" style="width: 100%;color: black;" [datasets]="chart1Data" [labels]="chart1Lables"
+              [colors]="chart1Colors" [chartType]="'line'">
+            </canvas> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<!-- store payments -->
+<div class="card">
+  <div class="card-header">
+    <h5><strong>{{'Dashboard_Page.STORE_PAYMENT_ANALYTICS' | translate}}</strong></h5>
+  </div>
+  <div class="card-body">
+    <div class="ui-bordered px-4 pt-4 mb-4">
+      <div class="form-row align-items-center">
+        <div class="col-md mb-4">
+          <label class="form-label">{{'General.DATE_FILTER' | translate}}</label>
+          <select class="custom-select" [(ngModel)]="bindType">
+            <option *ngFor="let item of selectType" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md mb-4">
+          <label class="form-label">{{'Dashboard_Page.YEAR' | translate}}</label>
+          <select class="custom-select" [(ngModel)]="bindYear">
+            <option *ngFor="let item of selectYear" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md mb-4" *ngIf="bindType == '&type=month-days'">
+          <label class="form-label">{{'Dashboard_Page.MONTH' | translate}}</label>
+          <select class="custom-select" [(ngModel)]="bindMonth">
+            <option *ngFor="let item of selectMonth" [value]="item.value">{{item.label | translate}}</option>
+          </select>
+        </div>
+        <div class="col-md col-xl-2 mb-4">
+          <label class="form-label d-none d-md-block">&nbsp;</label>
+          <button type="button" class="btn btn-dark btn-block"
+            (click)="getStorePaymentAnalyticsWithFilter()">{{'Dashboard_Page.SHOW' | translate}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="row no-gutters row-bordered">
+        <div class="card-body">
+          <div *ngIf="show2Chart" style="height: 210px; width:100%">
+            <canvas baseChart height="210" style="width: 100%;color: black;" [datasets]="chart2Data"
+              [labels]="chart2Lables" [chartType]="'line'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /store payments -->
+<br>
+<div class="card">
+  <div class="card-header">
+    <h5><strong>{{'Dashboard_Page.MOST_SOLD' | translate}}</strong></h5>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered card-table">
+        <thead>
+          <tr>
+            <th class="text-center">{{'Dashboard_Page.IMAGE' | translate}}</th>
+            <th class="text-nowrap cursor-pointer">
+              {{'Dashboard_Page.TITLE' | translate}}
+            </th>
+            <th>{{'Dashboard_Page.PRICE' | translate}}</th>
+            <th>{{'Dashboard_Page.QUANTITY' | translate}}</th>
+            <th>{{'Dashboard_Page.TOTAL_SOLD' | translate}}</th>
+            <th class="text-center">{{'Dashboard_Page.DETAILS' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of topSoldStock;">
+            <td *ngIf="!item?.fileName" class="text-center align-middle py-2"><img class="stock-img"
+                src="assets/image_placeholder.jpg" alt=""></td>
+            <td *ngIf="item?.fileName" class="text-center align-middle py-2"><img class="stock-img"
+                [src]="adminService?.fileUrl + item?.fileName" alt=""></td>
+            <td class="align-middle py-2">{{ item?.title }}</td>
+            <td class="align-middle py-2">{{ numberWithCommas(item?.price) }}</td>
+            <td class="align-middle py-2">{{ item?.quantity }}</td>
+            <td class="align-middle py-2" *ngIf="item?.totalSold">{{ item?.totalSold }}</td>
+            <td class="align-middle py-2" *ngIf="!item?.totalSold">-</td>
+            <td class="align-middle py-2 text-center"><button class="btn btn-dark btn-sm"
+                routerLink='/stock-detail/{{item?.id}}'>{{'Dashboard_Page.VIEW' | translate}}</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">
+    <h5><strong>{{'Dashboard_Page.LEAST_SOLD' | translate}}</strong></h5>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered card-table">
+        <thead>
+          <tr>
+            <th class="text-center">{{'Dashboard_Page.IMAGE' | translate}}</th>
+            <th class="text-nowrap cursor-pointer">
+              {{'Dashboard_Page.TITLE' | translate}}
+            </th>
+            <th>{{'Dashboard_Page.PRICE' | translate}}</th>
+            <th>{{'Dashboard_Page.QUANTITY' | translate}}</th>
+            <th>{{'Dashboard_Page.TOTAL_SOLD' | translate}}</th>
+            <th class="text-center">{{'Dashboard_Page.DETAILS' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of leastSoldStock;">
+            <td *ngIf="!item?.fileName" class="text-center align-middle py-2"><img class="stock-img"
+                src="assets/image_placeholder.jpg" alt=""></td>
+            <td *ngIf="item?.fileName" class="text-center align-middle py-2"><img class="stock-img"
+                [src]="adminService?.fileUrl + item?.fileName" alt=""></td>
+            <td class="align-middle py-2">{{ item?.title }}</td>
+            <td class="align-middle py-2">{{ numberWithCommas(item?.price) }}</td>
+            <td class="align-middle py-2">{{ item?.quantity }}</td>
+            <td class="align-middle py-2" *ngIf="item?.totalSold">{{ item?.totalSold }}</td>
+            <td class="align-middle py-2" *ngIf="!item?.totalSold">-</td>
+            <td class="align-middle py-2 text-center"><button class="btn btn-dark btn-sm"
+                routerLink='/stock-detail/{{item?.id}}'>{{'Dashboard_Page.VIEW' | translate}}</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

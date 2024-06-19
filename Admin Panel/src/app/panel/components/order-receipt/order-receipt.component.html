@@ -1,0 +1,79 @@
+<div class="print_area_container" [dir]="translationService?.isRTL ? 'rtl' : 'ltr'" [ngClass]="classes.fontMono"
+  [ngStyle]="{ width: width }">
+
+  <div class="text_center">
+    <h4><strong>{{orderDetailData?.company?.name}}</strong></h4>
+  </div>
+
+  <div class="normal_font">
+    <div><b>{{'OrderReceipt_Component.UNIQUE_ID' | translate}} :</b> &nbsp; {{orderDetailData?.uniqueId}}</div>
+    <div><b>{{'OrderReceipt_Component.DATE' | translate}} :</b> &nbsp; {{orderDetailData?.createdAt | date:'medium'}}
+    </div>
+    <div ><b>{{'OrderReceipt_Component.CUSTOMER' | translate}} :</b> &nbsp; {{orderDetailData?.customer?.name ? orderDetailData?.customer?.name :'-'}}</div>
+    <div ><b>{{'OrderReceipt_Component.PHONE' | translate}} :</b> &nbsp; {{orderDetailData?.customer?.phone ? orderDetailData?.customer?.phone :'-'}}</div>
+    <div ><b>{{'OrderReceipt_Component.ADDRESS' | translate}} :</b> &nbsp; {{orderDetailData?.customer?.address ? orderDetailData?.customer?.address : '-'}}</div>
+    <div ><b>{{'OrderReceipt_Component.CITY' | translate}} :</b> &nbsp; {{orderDetailData?.customer?.city ? orderDetailData?.customer?.city : '-'}}</div>
+  </div>
+  <div>&nbsp;</div>
+
+  <div class="grid_4_col normal_font">
+    <div><strong>{{'OrderReceipt_Component.STOCK' | translate}}</strong></div>
+    <div class="text_center"><strong>{{'OrderReceipt_Component.PRICE' | translate}}</strong></div>
+    <div class="text_center"><strong>{{'OrderReceipt_Component.QTY' | translate}}</strong></div>
+    <div class="text_reverse"><strong>{{'OrderReceipt_Component.TOTAL' | translate}}</strong></div>
+  </div>
+
+  <div class="grid_border grid_border_double"></div>
+
+  <div class="height_2_px"></div>
+  <div class="grid_4_col normal_font">
+    <ng-container *ngFor="let item of orderDetailData?.order_Items">
+      <div>{{item?.stock?.title}}</div>
+      <div class="text_center">${{item?.stock?.price}}</div>
+      <div class="text_center">{{item?.quantity}}</div>
+      <div class="text_reverse">${{item?.stock?.price * item?.quantity}}</div>
+    </ng-container>
+  </div>
+  <div class="height_2_px"></div>
+
+  <div class="grid_border grid_border_double"></div>
+
+  <div class="grid_2_col normal_font">
+    <div>
+      {{'OrderReceipt_Component.TOTAL_AMOUNT' | translate}}
+    </div>
+    <div class="text_reverse">
+      ${{orderDetailData?.totalAmount}}
+    </div>
+  </div>
+
+  <div class="grid_2_col normal_font" >
+    <div>
+      {{'OrderReceipt_Component.DISCOUNT' | translate}}
+    </div>
+    <div class="text_reverse">
+      - ${{orderDetailData?.discount ? orderDetailData?.discount :'0'}}
+    </div>
+  </div>
+
+  <div class="height_5_px"></div>
+
+  <div class="grid_2_col font_18px">
+    <div>
+      <div><strong>{{'OrderReceipt_Component.AMOUNT' | translate}}</strong></div>
+    </div>
+    <div class="text_reverse">
+      <div><strong>${{orderDetailData?.amount}}</strong></div>
+    </div>
+  </div>
+
+  <div class="grid_border grid_border_solid"></div>
+
+  <div class="height_5_px"></div>
+
+  <div class="text_center">
+    <h5 class="margin_b_0"><strong>{{'General.ACHIEVE_ORDER_MANAGEMENT_SYSTEM' | translate}}</strong>
+    </h5>
+    <div class="height_5_px"></div>
+    <div>https://achieveoms.com</div>
+  </div>

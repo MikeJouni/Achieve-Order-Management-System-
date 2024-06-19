@@ -1,0 +1,254 @@
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  {{'Admins_Page.ADMINS' | translate}}
+  <button type="button" class="btn btn-primary btn-round d-block" (click)="open(createModal)">
+    <span class="ion ion-md-add"></span>&nbsp; {{'Admins_Page.ADD_ADMIN' | translate}}
+  </button>
+</h4>
+<div class="card">
+  <!-- Table controls -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        {{'Admins_Page.PER_PAGE' | translate}}: &nbsp;
+        <select [(ngModel)]="perPage" (change)="update()" class="custom-select custom-select-sm d-inline-block w-auto">
+          <option *ngFor="let limit of [10, 20, 30, 40, 50]">
+            {{ limit }}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" [(ngModel)]="filterVal" (input)="currentPage = 1; update()"
+          class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+          placeholder="{{'Admins_Page.SEARCH' | translate}}" />
+      </div>
+    </div>
+  </div>
+  <!-- / Table controls -->
+  <!-- Table -->
+  <hr class="border-light m-0" />
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered card-table">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th class="text-center cursor-pointer" (click)="setSort('name')">
+            <strong>{{'Admins_Page.ADMIN' | translate}}</strong><i class="ion text-muted ml-2" *ngIf="sortBy == 'name'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-nowrap cursor-pointer" (click)="setSort('email')">
+            {{'Admins_Page.E_MAIL' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'email'"
+              [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+          </th>
+          <th class="text-center">{{'Admins_Page.TYPE' | translate}}</th>
+          <th class="text-center">{{'Admins_Page.DETAILS' | translate}}</th>
+          <th class="text-center">{{'Admins_Page.ACTIONS' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of adminArray;index as i">
+          <td class="text-center">{{i + 1}}</td>
+          <td class="align-middle py-2">
+            <div class="user-img-and-name">
+              <img *ngIf="!item.profilePhoto" src="assets/user-profile.svg" />
+              <img *ngIf="item.profilePhoto" [src]="adminService.fileUrl + item.profilePhoto" />
+              <span class="name">{{item?.name}}</span>
+            </div>
+          </td>
+          <td class="align-middle py-2">{{ item?.email }}</td>
+          <td class="text-center align-middle ">
+            <div class="p-1" [ngClass]="
+            item.isSuperAdmin==true ?'badge badge-success':
+            item.isSuperAdmin==false ? 'badge userApproval':
+            ''
+            ">
+              {{item.isSuperAdmin==true ? ('General.SUPER_ADMIN' | translate): ('General.ADMIN' | translate)}}</div>
+          </td>
+          <td *ngIf="!item?.isSuperAdmin" class="align-middle text-center py-2"><button class="btn btn-dark btn-sm"
+              routerLink='/admin-detail/{{item?.id}}'>{{'Admins_Page.VIEW' | translate}}</button></td>
+          <td *ngIf="item?.isSuperAdmin" class="align-middle text-center py-2">-</td>
+          <td class="text-nowrap align-middle p-2 text-center" *ngIf="item?.isSuperAdmin == false">
+            <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-info"
+              ngbTooltip="{{'Admins_Page.EDIT' | translate}}" (click)="open(editModal, item, i)"><i
+                class="ion ion-md-create"></i></a>&nbsp;
+            <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-danger"
+              ngbTooltip="{{'General.DELETE' | translate}}" (click)="adminId=item.id;deleteDialog.show()"><i class="ion ion-md-trash"></i></a>
+          </td>
+          <td class="text-nowrap align-middle p-2 text-center" *ngIf="item?.isSuperAdmin == true">
+            <i class="fas fa-minus"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- / Table -->
+  <!-- Pagination -->
+  <div class="card-body py-0">
+    <div class="row">
+      <div class="col-sm text-sm-left text-center pt-3">
+        <span class="text-muted" *ngIf="totalItems">{{'Admins_Page.PAGE' | translate}} {{ currentPage }}
+          {{'Admins_Page.OF' | translate}} {{ totalPages }}</span>
+      </div>
+      <div class="col-sm pt-3">
+        <ngb-pagination [collectionSize]="totalItems" [pageSize]="perPage" [(page)]="currentPage" [maxSize]="1"
+          (pageChange)="update()" size="sm"
+          class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+      </div>
+    </div>
+  </div>
+  <!-- / Pagination -->
+</div>
+<swal #deleteDialog
+  [options]="{type: 'warning', title:('General.ARE_YOU_SURE' | translate), customClass: translationService?.isRTL ? 'swal-rtl' : 'swal-ltr',showCancelButton:  true, confirmButtonText: ('General.DELETE' | translate), cancelButtonText: ('General.CANCEL' | translate), showCloseButton: true, confirmButtonClass: 'btn btn-lg btn-warning m-2', cancelButtonClass: 'btn btn-lg btn-default m-2'}"
+  (confirm)="deleteAdmin()"></swal>
+<!-- Add user modal template -->
+<ng-template #createModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title">
+      {{'Admins_Page.CREATE_ADMIN' | translate}} <br />
+    </h5>
+    <button type="button" class="close" (click)="d('Cross click')">
+      &times;
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-row">
+      <div class="form-group col">
+        <label class="form-label">{{'Admins_Page.NAME' | translate}}</label>
+        <input type="text" class="form-control" placeholder="{{'General.JOHN_DOE' | translate}}"
+          [(ngModel)]="adminData.name" />
+      </div>
+      <div class="form-group col mb-0">
+        <label class="form-label">{{'Admins_Page.E_MAIL' | translate}}</label>
+        <input type="email" class="form-control" placeholder="johndoe@gmail.com" [(ngModel)]="adminData.email" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col mb-0">
+        <label class="form-label">{{'Admins_Page.PASSWORD' | translate}}</label>
+        <input type="password" class="form-control" placeholder="******" [(ngModel)]="adminData.password" />
+      </div>
+      <div class="form-group col mb-0">
+        <label class="form-label">{{'Admins_Page.CONFIRM_PASSWORD' | translate}}</label>
+        <input type="password" class="form-control" placeholder="******" [(ngModel)]="newPassword.confirmPassword" />
+      </div>
+    </div>
+    <div class="form-group mt-3">
+      <label class="form-label">{{'Admins_Page.PROFILE_PICTURE' | translate}} <small>({{'Admins_Page.OPTIONAL' |
+          translate}}) <br>({{'Admins_Page.MAX_SIZE_2_MB' | translate}})</small></label>
+      <label class="custom-file">
+        <input type="file" class="custom-file-input" accept="image/png, image/jpeg"
+          (change)="handleFileInput($event.target.files)" />
+        <span class="custom-file-label">{{fileToUpload?.name}}</span>
+      </label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="c('Close click');">
+      {{'Admins_Page.CLOSE' | translate}}
+    </button>
+    &nbsp;
+    <button type="button" class="btn btn-primary" (click)="createAdmin()" [disabled]="btnLoading">
+      <span class="my-btn-loader">
+        {{'Admins_Page.CREATE' | translate}}
+        <span *ngIf="btnLoading" class="my-loader"></span>
+      </span>
+    </button>
+  </div>
+</ng-template>
+<!-- /add user modal template -->
+<!-- edit user modal template -->
+<ng-template #editModal let-c="close" let-d="dismiss">
+  <div *ngIf="editAdmin">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'Admins_Page.EDIT_ADMIN' | translate}}<br />
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click');">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Admins_Page.NAME' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'General.JOHN_DOE' | translate}}"
+            [(ngModel)]="adminData.name" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'Admins_Page.E_MAIL' | translate}}</label>
+          <input type="email" class="form-control" placeholder="johndoe@gmail.com" [(ngModel)]="adminData.email" />
+        </div>
+      </div>
+      <div class="form-group mt-3">
+        <label class="form-label">{{'Admins_Page.PROFILE_PICTURE' | translate}} <small>({{'Admins_Page.OPTIONAL' |
+            translate}}) <br>({{'Admins_Page.MAX_SIZE_2_MB' | translate}})</small></label>
+        <label class="custom-file">
+          <input type="file" class="custom-file-input" accept="image/png, image/jpeg"
+            (change)="handleFileInput($event.target.files)" />
+          <span class="custom-file-label">{{fileToUpload ? fileToUpload?.name : profilePhotoVar }}</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row changemodalbtn w-100">
+        <button type="button" class="btn btn-secondary text-left" (click)="modalUpdatePassword()">
+          {{'Admins_Page.EDIT_PASSWORD' | translate}}
+        </button>
+      </div>
+      <button type="button" class="btn btn-default" (click)="c('Close click'); admindataClear();editAdmin=true">
+        {{'Admins_Page.CLOSE' | translate}}
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-primary" (click)="updateAdmin()" [disabled]="btnLoading">
+        <span class="my-btn-loader">
+          {{'Admins_Page.SAVE_CHANGES' | translate}}
+          <span *ngIf="btnLoading" class="my-loader"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="!editAdmin">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'Admins_Page.UPDATE_PASSWORD' | translate}}<br />
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Admins_Page.PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="newPassword.password" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Admins_Page.CONFIRM_PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="newPassword.confirmPassword" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="row changemodalbtn w-100">
+        <button type="button" class="btn btn-secondary" (click)="editAdmin=true">
+          {{'Admins_Page.EDIT_ADMIN' | translate}}
+        </button>
+      </div>
+      <button type="button" class="btn btn-default" (click)="c('Close click');admindataClear();editAdmin=true">
+        {{'Admins_Page.CLOSE' | translate}}
+      </button>
+      &nbsp;
+      <button type="button" class="btn btn-primary" (click)="updatePassword()" [disabled]="btnLoading">
+        <span class="my-btn-loader">
+          {{'Admins_Page.SAVE_CHANGES' | translate}}
+          <span *ngIf="btnLoading" class="my-loader"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!-- /edit user modal template -->

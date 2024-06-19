@@ -1,0 +1,13 @@
+<section id="lang-section" [dir]="translationService?.isRTL ? 'rtl' : 'ltr'">
+
+  <div *ngIf="alertService.myAlert.show" id="my-alert-div" class="animate__animated" [ngClass]="
+    alertService.myAlert.class ? 'animate__fadeIn' : 'animate__fadeOut'
+  ">
+    <ngb-alert [dismissible]="false" [type]="alertService.myAlert.type">
+      {{ alertService.myAlert.message }}
+    </ngb-alert>
+  </div>
+
+  <router-outlet></router-outlet>
+
+</section>

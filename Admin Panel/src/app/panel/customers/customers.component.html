@@ -1,0 +1,183 @@
+<ng-container>
+  <h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+    {{'Customers_Page.CUSTOMERS' | translate}}
+    <button type="button" class="btn btn-primary btn-round d-block" (click)="open(createModal)">
+      <span class="ion ion-md-add"></span>&nbsp; {{'Customers_Page.ADD_CUSTOMER' | translate}}
+    </button>
+  </h4>
+  <div class="card">
+    <!-- Table controls -->
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          {{'Customers_Page.PER_PAGE' | translate}}: &nbsp;
+          <select [(ngModel)]="perPage" (change)="update()"
+            class="custom-select custom-select-sm d-inline-block w-auto">
+            <option *ngFor="let limit of [10, 20, 30, 40, 50]">
+              {{ limit }}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <input type="text" [(ngModel)]="filterVal" (input)="currentPage = 1; update()"
+            class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+            placeholder="{{'Customers_Page.SEARCH' | translate}}" />
+        </div>
+      </div>
+    </div>
+    <!-- / Table controls -->
+    <!-- Table -->
+    <hr class="border-light m-0" />
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered card-table">
+        <thead>
+          <tr>
+            <th class="text-center">#</th>
+            <th class="text-nowrap cursor-pointer" (click)="setSort('name')">
+              {{'Customers_Page.NAME' | translate}}<i class="ion text-muted ml-2" *ngIf="sortBy == 'name'"
+                [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+            </th>
+            <th>{{'Customers_Page.PHONE' | translate}}</th>
+            <th>{{'Customers_Page.ADDRESS' | translate}}</th>
+            <th>{{'Customers_Page.CITY' | translate}}</th>
+            <th class="text-center">{{'Customers_Page.ORDERS' | translate}}</th>
+            <th class="text-center">{{'Customers_Page.ACTIONS' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of customerArray;index as i">
+            <td class="text-center">{{i + 1}}</td>
+            <td class="align-middle py-2">{{ item?.name }}</td>
+            <td class="align-middle py-2">{{ item?.phone }}</td>
+            <td class="align-middle py-2">{{ item?.address }}</td>
+            <td class="align-middle py-2">{{ item?.city }}</td>
+            <td class="align-middle text-center py-2"><button class="btn btn-dark btn-sm"
+                routerLink='/customer-order/{{item?.id}}'>{{'Customers_Page.VIEW' | translate}}</button></td>
+            <td class="text-nowrap align-middle p-2 text-center">
+              <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-info"
+                ngbTooltip="{{'General.EDIT' | translate}}" (click)="open(editModal, item)"><i
+                  class="ion ion-md-create"></i></a>&nbsp;
+              <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-danger"
+                ngbTooltip="{{'General.DELETE' | translate}}" (click)="customerId=item.id;deleteDialog.show()"><i
+                  class="ion ion-md-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- / Table -->
+    <!-- Pagination -->
+    <div class="card-body py-0">
+      <div class="row">
+        <div class="col-sm text-sm-left text-center pt-3">
+          <span class="text-muted" *ngIf="totalItems">{{'Customers_Page.PAGE' | translate}} {{ currentPage }}
+            {{'Customers_Page.OF' | translate}} {{ totalPages }}</span>
+        </div>
+        <div class="col-sm pt-3">
+          <ngb-pagination [collectionSize]="totalItems" [pageSize]="perPage" [(page)]="currentPage" [maxSize]="1"
+            (pageChange)="update()" size="sm"
+            class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+    <!-- / Pagination -->
+  </div>
+  <swal #deleteDialog
+    [options]="{type: 'warning', title:('General.ARE_YOU_SURE' | translate), customClass: translationService?.isRTL ? 'swal-rtl' : 'swal-ltr',showCancelButton:  true, confirmButtonText: ('General.DELETE' | translate), cancelButtonText: ('General.CANCEL' | translate), showCloseButton: true, confirmButtonClass: 'btn btn-lg btn-warning m-2', cancelButtonClass: 'btn btn-lg btn-default m-2'}"
+    (confirm)="deleteCustomer()"></swal>
+  <!-- Add user modal template -->
+  <ng-template #createModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'Customers_Page.CREATE_CUSTOMER' | translate}} <br />
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Customers_Page.NAME' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'General.JOHN_DOE' | translate}}"
+            [(ngModel)]="customerData.name" />
+        </div>
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'Customers_Page.PHONE' | translate}}</label>
+          <input type="number" class="form-control" placeholder="+1 111 1111" [(ngModel)]="customerData.phone" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'Customers_Page.ADDRESS' | translate}}</label>
+          <input type="text" class="form-control" placeholder="Street 123, ABC" [(ngModel)]="customerData.address" />
+        </div>
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'Customers_Page.CITY' | translate}}</label>
+          <input type="text" class="form-control" placeholder="XYZ" [(ngModel)]="customerData.city" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click');">
+        {{'Customers_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="createCustomer()" [disabled]="btnLoading">
+        <span class="my-btn-loader">
+          {{'Customers_Page.CREATE' | translate}}
+          <span *ngIf="btnLoading" class="my-loader"></span>
+        </span>
+      </button>
+    </div>
+  </ng-template>
+  <!-- /add user modal template -->
+  <!-- edit user modal template -->
+  <ng-template #editModal let-c="close" let-d="dismiss">
+    <div>
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{'Customers_Page.EDIT_CUSTOMER' | translate}}<br />
+        </h5>
+        <button type="button" class="close" (click)="d('Cross click');">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group col">
+            <label class="form-label">{{'Customers_Page.NAME' | translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'General.JOHN_DOE' | translate}}"
+              [(ngModel)]="customerData.name" />
+          </div>
+          <div class="form-group col mb-0">
+            <label class="form-label">{{'Customers_Page.PHONE' | translate}}</label>
+            <input type="number" class="form-control" placeholder="+1 111 1111" [(ngModel)]="customerData.phone" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <label class="form-label">{{'Customers_Page.ADDRESS' | translate}}</label>
+            <input type="text" class="form-control" placeholder="Street 123, ABC" [(ngModel)]="customerData.address" />
+          </div>
+          <div class="form-group col mb-0">
+            <label class="form-label">{{'Customers_Page.CITY' | translate}}</label>
+            <input type="test" class="form-control" placeholder="XYZ" [(ngModel)]="customerData.city" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="c('Close click'); customerDataClear()">
+          {{'Customers_Page.CLOSE' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="updateCustomer()" [disabled]="btnLoading">
+          <span class="my-btn-loader">
+            {{'Customers_Page.SAVE_CHANGES' | translate}}
+            <span *ngIf="btnLoading" class="my-loader"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+  <!-- /edit user modal template -->
+
+</ng-container>

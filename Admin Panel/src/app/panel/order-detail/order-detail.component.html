@@ -1,0 +1,226 @@
+<!-- <button class="btn btn-dark" (click)="onBack()">Back</button> -->
+<div class="d-block px-0 text-right my-2">
+  <div class="print-select text-right px-0">
+    <select [(ngModel)]="printType" class="custom-select w-auto">
+      <option value="Invoice">{{'OrderDetail_Page.INVOICE' | translate}}</option>
+      <option value="Order">{{'OrderDetail_Page.ORDER' | translate}}</option>
+      <option value="Purchase">{{'OrderDetail_Page.PURCHASE' | translate}}</option>
+    </select>
+    <button [useExistingCss]="true" printSectionId="print-section" ngxPrint class="btn btn-light mx-2">
+      <span class="fas fa-print"></span>&nbsp; {{'OrderDetail_Page.PRINT' | translate}}
+    </button>
+    <button class="btn btn-light" (click)="printReceipt()">
+      <span class="fas fa-file-alt"></span>&nbsp; {{'OrderDetail_Page.PRINT_RECEIPT' | translate}}
+    </button>
+  </div>
+</div>
+
+<div class="my-5" [ngClass]="false ? 'd-block' : 'd-none'">
+  <div class="d-flex align-items-center justify-content-center">
+    <app-order-receipt [width]="'77mm'" [orderDetailData]="orderDetail"></app-order-receipt>
+  </div>
+</div>
+
+
+<div id="print-section">
+  <div class="row">
+    <div class="col-8">
+      <img class="company-logo-invoice" *ngIf="orderDetail?.company?.admin?.profilePhoto"
+        [src]="fileService?.fileUrl + orderDetail?.company?.admin?.profilePhoto" alt="">
+      <img class="company-logo-invoice" *ngIf="!orderDetail?.company?.admin?.profilePhoto"
+        src="../../../assets/image_placeholder.jpg" alt="">
+    </div>
+    <div class="col float-right">
+      <h1 class="simple-invoice m-1">{{orderDetail?.company?.name}}</h1><br>
+      {{orderDetail?.createdAt | date}} <br><br>
+      <strong>{{'OrderDetail_Page.INVOICE' | translate}} #: {{orderDetail?.uniqueId}}</strong><br><br>
+    </div>
+  </div><br>
+  <!-- Info -->
+  <div class="card-body pb-1">
+  </div>
+  <hr class="m-0">
+  <!-- / Status -->
+  <div class="main-invoice-div">
+    <div class="container my-5 mx-0 px-0">
+      <h4><strong>{{'OrderDetail_Page.BILL_TO' | translate}}:</strong></h4>
+      <div class="card-body p-0">
+        <div class="form">
+          <label class="form-label mb-0"><strong> {{'OrderDetail_Page.CUSTOMER_NAME' | translate}}</strong></label><br>
+          <p>{{orderDetail?.customer?.name}}</p>
+        </div>
+        <div class="form">
+          <label class="form-label mb-0"><strong> {{'OrderDetail_Page.ADDRESS' | translate}}</strong></label><br>
+          <p>{{orderDetail?.customer?.address}}</p>
+        </div>
+        <div class="form">
+          <label class="form-label mb-0"><strong> {{'OrderDetail_Page.PHONE_NUMBER' | translate}}</strong></label><br>
+          <p>{{orderDetail?.customer?.phone}}</p>
+        </div>
+        <div class="form">
+          <label class="form-label mb-0"><strong> {{'OrderDetail_Page.CITY' | translate}}</strong></label><br>
+          <p>{{orderDetail?.customer?.city}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <h5 class="">
+        <strong>{{'OrderDetail_Page.DETAILS' | translate}}</strong>
+      </h5>
+      <div class="table-responsive">
+        <table class="table table-bordered m-0" style="min-width:550px;">
+          <thead>
+            <tr>
+              <th class="text-center px-0">#</th>
+              <!-- <th class="text-center px-0">Image</th> -->
+              <th class="px-2">{{'OrderDetail_Page.TITLE' | translate}}</th>
+              <th class="text-center px-0">{{'OrderDetail_Page.QUANTITY' | translate}}</th>
+              <th class="text-center px-0" *ngIf="printType !=='Purchase'">{{'OrderDetail_Page.PRICE' | translate}}</th>
+              <th class="text-center px-0" *ngIf="printType !=='Purchase'">{{'OrderDetail_Page.SOLD_PRICE' | translate}}
+              </th>
+              <th class="text-center px-0" *ngIf="printType !=='Purchase'">{{'OrderDetail_Page.DISCOUNT' | translate}}
+              </th>
+              <th class="text-center px-0" *ngIf="printType=='Order' && (isProfitCostVisible || !isEmployee)">{{'OrderDetail_Page.COST' | translate}}</th>
+              <th class="text-center px-0" *ngIf="printType=='Order' && (isProfitCostVisible || !isEmployee)">{{'OrderDetail_Page.PROFIT' | translate}}</th>
+              <th class="text-center px-0" *ngIf="printType !=='Purchase'">{{'OrderDetail_Page.TOTAL_PRICE' |
+                translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderDetail?.orderItemsDetail;index as i">
+              <td class="align-middle p-0 text-center" style="width: 130px;">
+                {{i + 1}}
+              </td>
+              <td class="align-middle p-0">
+                <div class="media align-middle">
+                  <div class="align-middle media-body">
+                    <p class="align-middle px-2 mt-2 d-block text-dark">{{item?.stock?.title}}</p>
+                  </div>
+                </div>
+              </td>
+              <!-- Set column width -->
+              <!-- Set column width -->
+              <td class="align-middle p-0 text-center" style="width: 130px;">
+                {{item?.quantity}}
+              </td>
+              <!-- Set column width -->
+              <td class="font-weight-semibold align-middle p-0 text-center" style="width: 130px;"
+                *ngIf="printType !=='Purchase'">
+                {{item?.stock?.price}}
+              </td>
+              <td class="font-weight-semibold align-middle p-0 text-center" style="width: 130px;"
+                *ngIf="printType !=='Purchase'">
+                {{item?.stock?.price - item?.discount}}
+              </td>
+              <td class="font-weight-semibold align-middle p-0 text-center" style="width: 130px;"
+                *ngIf="printType !=='Purchase'">
+                {{item?.discount}}
+              </td>
+              <td class="font-weight-semibold align-middle p-0 text-center" style="width: 130px;"
+                *ngIf="printType=='Order' && (isProfitCostVisible || !isEmployee)">
+                {{item?.stock?.cost}}
+              </td>
+              <td class="font-weight-semibold align-middle p-0 text-center" style="width: 130px;"
+                *ngIf="printType=='Order' && (isProfitCostVisible || !isEmployee)">
+                {{item?.stock?.profit - item?.discount}}
+              </td>
+              <td class="font-weight-semibold align-middle p-0 text-center" style="width: 130px;"
+                *ngIf="printType !=='Purchase'">
+                {{(item?.stock?.price - item?.discount) * item?.quantity}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><br>
+    <div class="row text-right" *ngIf="printType !=='Purchase'">
+      <div class="col-6">
+        <strong>{{'OrderDetail_Page.TOTAL' | translate}}</strong>
+      </div>
+      <div class="col">
+        <h5><strong>${{orderDetail?.amount}}</strong></h5>
+      </div>
+    </div>
+  </div><br>
+
+  <!-- Info -->
+  <div class="card-body px-0 pb-1" *ngIf="printType=='Order'">
+    <h5><strong>{{'OrderDetail_Page.ORDER_INFO' | translate}}</strong></h5>
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.STATUS' | translate}}</div>
+        <div class="p-1" [ngClass]="
+            orderDetail?.status=='completed' ?'badge badge-success':
+            orderDetail?.status=='in-progress' ?'badge badge-warning':
+            orderDetail?.status=='cancelled' ?'badge badge-danger':
+            ''
+            ">
+          {{
+          orderDetail?.status=='completed' ?'Completed':
+          orderDetail?.status=='in-progress' ?'In Progress':
+          orderDetail?.status=='cancelled' ?'Cancelled':
+          ''
+          }}</div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.CANCEL_REASON' | translate}}</div>
+        <div class="p-1">
+          {{
+          orderDetail?.cancelReason==null ?'--':
+          orderDetail?.cancelReason
+          }}
+        </div>
+      </div>
+      <div class="col-md-4 mb-3" *ngIf="printType=='Order' && (isProfitCostVisible || !isEmployee)">
+        <div class="text-muted small">{{'OrderDetail_Page.COST' | translate}}</div>
+        {{orderDetail?.cost}}
+      </div>
+      <div class="col-md-4 mb-3" *ngIf="printType=='Order' && (isProfitCostVisible || !isEmployee)">
+        <div class="text-muted small">{{'OrderDetail_Page.PROFIT' | translate}}</div>
+        {{orderDetail?.profit}}
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.DISCOUNT' | translate}}</div>
+        {{orderDetail?.discount}}
+      </div>
+      <div class="col-md-12 mb-3" *ngIf="orderDetail?.note">
+        <div class="text-muted small">{{'OrderDetail_Page.NOTE' | translate}}</div>
+        {{orderDetail?.note}}
+      </div>
+    </div>
+  </div>
+  <hr class="m-0">
+  <div class="card-body px-0" *ngIf="printType=='Order'">
+    <h5 class="font-weight-semibold">
+      <strong>{{'OrderDetail_Page.DRIVER_INFO' | translate}}</strong>
+    </h5>
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.NAME' | translate}}</div>
+        {{orderDetail?.driver?.name}}
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.PHONE' | translate}}</div>
+        {{orderDetail?.driver?.phone}}
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.ADDRESS' | translate}}</div>
+        {{orderDetail?.driver?.address}}
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.CITY' | translate}}</div>
+        {{orderDetail?.driver?.city}}
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.MEMBER_SINCE' | translate}}</div>
+        {{orderDetail?.driver?.createdAt | date}}
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="text-muted small">{{'OrderDetail_Page.DRIVER_ORDERS' | translate}}</div>
+        <button *ngIf="orderDetail?.driver?.id" class="btn btn-dark btn-sm"
+          routerLink='/driver-order/{{orderDetail?.driver?.id}}'>{{'OrderDetail_Page.VIEW' | translate}}</button>
+      </div>
+    </div>
+  </div>
+  <hr class="m-0">
+</div>

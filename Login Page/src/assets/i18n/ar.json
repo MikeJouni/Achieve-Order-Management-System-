@@ -1,0 +1,29 @@
+{
+  "Login_Page": {
+    "ACHIEVE_ORDER_MANAGEMENT_SYSTEM": "نظام إدارة الطلبات",
+    "EMAIL": "البريد إلكتروني",
+    "PASSWORD": "كلمة المرور",
+    "FORGOT_PASSWORD": "هل نسيت كلمة السر؟",
+    "ADMIN": "مسؤل",
+    "EMPLOYEE": "موظف",
+    "RE_CAPTCHA_IS_REQUIRED": "مطلوب إعادة captcha.",
+    "SIGN_IN": "تسجيل الدخول",
+    "PLEASE_WAIT_FOR": "من فضلك انتظر",
+    "MINUTES_TO_RE_ATTEMPT": "دقائق لإعادة المحاولة."
+  },
+  "ForgotPassword_Page": {
+    "ACHIEVE_ORDER_MANAGEMENT_SYSTEM": "نظام إدارة الطلبات",
+    "EMAIL": "البريد إلكتروني",
+    "EMAIL_OR_USERNAME": "البريد الإلكتروني أو اسم المستخدم",
+    "ENTER_OTP_SENT_TO_YOUR_EMAIL": "أدخل OTP المرسل إلى بريدك الإلكتروني",
+    "CHECK_YOUR_SPAM_FOLDER": "قم بالتأكد من ملف البريد SPAM",
+    "ADMIN": "مسؤل",
+    "EMPLOYEE": "موظف",
+    "SEND_OTP": "أرسل OTP",
+    "PLEASE_WAIT_FOR": "من فضلك انتظر",
+    "MINUTES_TO_RE_ATTEMPT": "دقائق لإعادة المحاولة.",
+    "PASSWORD": "كلمة المرور",
+    "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+    "UPDATE": "تحديث"
+  }
+}

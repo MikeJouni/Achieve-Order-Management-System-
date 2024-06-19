@@ -1,0 +1,13 @@
+// -------------------------------------------------------------------------------
+// Imports
+
+@import "~vendor/libs/spinkit/mixins";
+@import "~vendor/libs/ng-select/mixins";
+
+// -------------------------------------------------------------------------------
+// Theme mixin
+
+@mixin appwork-libs-theme($background, $color: null) {
+  @include spinkit-theme($background);
+  @include ng-select-theme($background, $color);
+}

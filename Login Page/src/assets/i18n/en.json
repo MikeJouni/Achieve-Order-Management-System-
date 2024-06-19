@@ -1,0 +1,29 @@
+{
+  "Login_Page": {
+    "ACHIEVE_ORDER_MANAGEMENT_SYSTEM": "Achieve Order Management System",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "FORGOT_PASSWORD": "Forgot Password?",
+    "ADMIN": "Admin",
+    "EMPLOYEE": "Employee",
+    "RE_CAPTCHA_IS_REQUIRED": "Re-captcha is required.",
+    "SIGN_IN": "Sign In",
+    "PLEASE_WAIT_FOR": "Please wait for",
+    "MINUTES_TO_RE_ATTEMPT": "minutes to re attempt."
+  },
+  "ForgotPassword_Page": {
+    "ACHIEVE_ORDER_MANAGEMENT_SYSTEM": "Achieve Order Management System",
+    "EMAIL": "Email",
+    "EMAIL_OR_USERNAME": "Email or Username",
+    "ENTER_OTP_SENT_TO_YOUR_EMAIL": "Enter OTP sent to your email",
+    "CHECK_YOUR_SPAM_FOLDER": "Check your spam folder",
+    "ADMIN": "Admin",
+    "EMPLOYEE": "Employee",
+    "SEND_OTP": "Send OTP",
+    "PLEASE_WAIT_FOR": "Please wait for",
+    "MINUTES_TO_RE_ATTEMPT": "minutes to re attempt.",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "UPDATE": "Update"
+  }
+}

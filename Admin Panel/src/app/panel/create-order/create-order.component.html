@@ -1,0 +1,238 @@
+<button class="btn btn-dark" (click)="onBack()">{{'CreateOrder_Page.BACK' | translate}}</button>
+<h4 class="d-flex justify-content-between align-items-center w-100 font-weight-bold py-3 mb-4">
+  {{'CreateOrder_Page.CREATE_ORDER' | translate}}
+  <button *ngIf="createModalBtn==true" type="button" class="btn btn-primary btn-round d-block"
+    (click)="createModal=true">
+    <span class="ion ion-md-add"></span>&nbsp; {{'CreateOrder_Page.ADD_CUSTOMER' | translate}}
+  </button>
+</h4>
+<ng-container>
+  <div class="card" *ngIf="createModal==true">
+    <div class="card-header">
+      <h5 class="card-title">
+        {{'CreateOrder_Page.CREATE_CUSTOMER' | translate}} <br />
+      </h5>
+      <!-- <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button> -->
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'CreateOrder_Page.NAME' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'General.JOHN_DOE' | translate}}"
+            [(ngModel)]="customerData.name" />
+        </div>
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'CreateOrder_Page.PHONE' | translate}}</label>
+          <input type="number" class="form-control" placeholder="+1 111 1111" [(ngModel)]="customerData.phone" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'CreateOrder_Page.ADDRESS' | translate}}</label>
+          <input type="text" class="form-control" placeholder="Street 123, ABC" [(ngModel)]="customerData.address" />
+        </div>
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'CreateOrder_Page.CITY' | translate}}</label>
+          <input type="text" class="form-control" placeholder="XYZ" [(ngModel)]="customerData.city" />
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-right">
+      <button type="button" class="btn btn-default" (click)="createModal=false">
+        {{'CreateOrder_Page.CLOSE' | translate}}
+      </button>&nbsp;
+      <button type="button" class="btn btn-primary" (click)="createCustomer();createModal=false">
+        {{'CreateOrder_Page.CREATE' | translate}}
+      </button>
+    </div>
+  </div><br>
+</ng-container>
+
+<div class="row">
+
+  <div class="col-xl-6">
+
+    <div class="card mb-4">
+      <h6 class="card-header">
+        {{'CreateOrder_Page.ORDER_DETAILS' | translate}}
+      </h6>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label class="form-label">{{'CreateOrder_Page.SELECT_CUSTOMER' | translate}}</label>
+            <div *ngIf="showCustomerSelect">
+              <ng-select [items]="customerArray" class="p-0 m-0" bindLabel="name" bindValue="id"
+                [(ngModel)]="orderData.customerId" name="customer"
+                placeholder="{{'CreateOrder_Page.SELECT_CUSTOMER' | translate}}"></ng-select>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="form-label">{{'CreateOrder_Page.SELECT_DRIVER' | translate}}</label><small>
+              ({{'CreateOrder_Page.OPTIONAL' | translate}})</small>
+            <ng-select [items]="driverArray" class="p-0 m-0" bindLabel="name" bindValue="id"
+              [(ngModel)]="orderData.driverId" name="driver"
+              placeholder="{{'CreateOrder_Page.SELECT_DRIVER' | translate}}">
+            </ng-select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label">{{'CreateOrder_Page.SELECT_ITEM' | translate}}</label>
+              <div *ngIf="showSelect">
+                <ng-select #stockItemsSelect [items]="stockArray" bindLabel="title" bindValue="id"
+                  (change)="onStockChange($event)" placeholder="{{'CreateOrder_Page.SELECT_ITEM' | translate}}"
+                  [(ngModel)]="orderStockData.id">
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-6">
+              <label class="form-label">{{'CreateOrder_Page.QUANTITY' | translate}}</label>&nbsp;<small
+                class="text-primary" *ngIf="orderStockData.id && orderStockData.isUnlimitedQty==false">Left
+                : {{orderStockData.maxQty}}</small>
+              <input [disabled]="!orderStockData.id" type="number" class="my-input"
+                [(ngModel)]="orderStockData.quantity"
+                (input)="toCalculateDiscount(orderStockData.quantity, orderStockData.discountedPrice, orderStockData.totalDiscountedPrice, null)">
+              <small class="text-danger"
+                *ngIf="(orderStockData.quantity > orderStockData.maxQty) && orderStockData.isUnlimitedQty==false">
+                {{'CreateOrder_Page.QUANTITY_MUST_BE_LESS_THAN_OR_EQUAL_TO' | translate}}
+                {{orderStockData.maxQty}}.</small>
+            </div>
+            <div class="col-6 mt-3">
+              <label class="form-label">{{'CreateOrder_Page.PRICE_PER_ITEM' | translate}}</label>&nbsp;<small
+                class="text-primary">{{orderStockData?.price}}</small>
+              <input [disabled]="!orderStockData.id" type="number" class="my-input"
+                (input)="toCalculateDiscount(orderStockData.quantity, orderStockData.discountedPrice, orderStockData.totalDiscountedPrice, null)"
+                [(ngModel)]="orderStockData.discountedPrice">
+              <!-- <small class="text-danger" *ngIf="orderStockData.discountedPrice > orderStockData.price">
+                {{'CreateOrder_Page.PRICE_MUST_BE_LESS_THAN_OR_EQUAL_TO' | translate}} {{orderStockData.price}}.</small> -->
+            </div>
+            <div class="col-6 mt-3">
+              <label class="form-label">{{'CreateOrder_Page.OVERALL_PRICE' | translate}}</label>&nbsp;<small
+                class="text-primary">{{orderStockData?.price * orderStockData?.quantity }}</small>
+              <input [disabled]="!orderStockData.id" type="number" class="my-input"
+                (input)="toCalculateDiscount(orderStockData.quantity, orderStockData.discountedPrice, orderStockData.totalDiscountedPrice, true)"
+                [(ngModel)]="orderStockData.totalDiscountedPrice">
+              <!-- <small class="text-danger" *ngIf="orderStockData.discountedPrice > orderStockData.price">
+                {{'CreateOrder_Page.PRICE_MUST_BE_LESS_THAN_OR_EQUAL_TO' | translate}} {{orderStockData.price}}.</small> -->
+            </div>
+            <div class="col mt-2">
+              <label class="form-label">{{'CreateOrder_Page.DISCOUNT' | translate}}</label>
+              <input disabled type="number" class="my-input disable-input"
+                [value]="(orderStockData?.price - orderStockData?.discountedPrice).toFixed(2)">
+            </div>
+            <div class="col mt-2" *ngIf="isProfitCostVisible || !isEmployee">
+              <label class="form-label">{{'CreateOrder_Page.COST' | translate}}</label>
+              <input disabled type="number" class="my-input disable-input" [value]="orderStockData?.cost">
+            </div>
+            <div class="col mt-2" *ngIf="isProfitCostVisible || !isEmployee">
+              <label class="form-label">{{'CreateOrder_Page.PROFIT' | translate}}</label>
+              <input disabled type="number" class="my-input disable-input"
+                [value]="(orderStockData?.profit - (orderStockData?.price - orderStockData?.discountedPrice)).toFixed(2)">
+            </div>
+            <div class="col mt-2">
+              <label class="form-label">{{'CreateOrder_Page.MAX_QUANTITY' | translate}}</label>
+              <input disabled type="number" class="my-input disable-input" [value]="orderStockData?.maxQty">
+            </div>
+          </div>
+          <div class="form-row mt-3">
+            <div class="form-group col">
+              <label class="form-label">{{'CreateOrder_Page.NOTE' | translate}} <small>({{'CreateOrder_Page.OPTIONAL' |
+                  translate}})</small></label>
+              <textarea rows="5" class="form-control" placeholder="{{'CreateOrder_Page.ADD_SOME_NOTE' | translate}}"
+                [(ngModel)]="orderData.note"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col">
+              <label class="custom-control p-0 custom-checkbox">
+                <input type="checkbox" [(ngModel)]="orderData.isAmountNotPaid">&nbsp;
+                <span>{{'CreateOrder_Page.ADD_TO_DEBT' | translate}}</span>
+              </label>
+            </div>
+            <div class="form-group float-right">Status : <strong>{{'CreateOrder_Page.PENDING' |
+                translate}}</strong>&nbsp;
+              <label class="switcher text-center switcher-success"><strong>&nbsp;{{'CreateOrder_Page.COMPLETED' |
+                  translate}}</strong>
+                <input type="checkbox" checked (change)="onChange($event)" class="switcher-input" />
+                <span class="switcher-indicator">
+                  <span class="switcher-yes">
+                    <span class="ion ion-md-checkmark"></span>
+                  </span>
+                  <span class="switcher-no">
+                    <span class="ion ion-md-close"></span>
+                  </span>
+                </span>
+                <span class="switcher-label"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="float-right">
+          <button class="btn btn-outline-primary"
+            (click)="addItem();createModalBtn=false;createModal=false">{{'CreateOrder_Page.ADD_ITEM' |
+            translate}}</button>&nbsp;
+          <button type="button" class="btn btn-outline-success" (click)="createOrderData()" [disabled]="btnLoading">
+            <span class="my-btn-loader">
+              {{'CreateOrder_Page.CREATE_ORDER' | translate}}
+              <span *ngIf="btnLoading" class="my-loader"></span>
+            </span>
+          </button>
+          <!-- <button class="btn btn-outline-success" (click)="createOrderData()">{{'CreateOrder_Page.CREATE_ORDER' |
+            translate}}</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-6">
+
+    <div class="card mb-4">
+      <h6 class="card-header">
+        {{'CreateOrder_Page.CART_DETAILS' | translate}}
+      </h6>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered card-table">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th>{{'CreateOrder_Page.ITEM' | translate}}</th>
+                <th>{{'CreateOrder_Page.PRICE' | translate}}</th>
+                <th>{{'CreateOrder_Page.QUANTITY' | translate}}</th>
+                <th>{{'CreateOrder_Page.TOTAL_PRICE' | translate}}</th>
+                <th>{{'CreateOrder_Page.DISCOUNT' | translate}}</th>
+                <th>{{'CreateOrder_Page.OVERALL_DISCOUNT' | translate}}</th>
+                <th class="text-center">{{'CreateOrder_Page.REMOVE' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of orderItemsList;index as i">
+                <td class="text-center">{{i + 1}}</td>
+                <td class="align-middle py-2">{{ item?.title }}</td>
+                <td class="align-middle py-2">{{ item?.discountedPrice }}</td>
+                <td class="align-middle py-2">{{ item?.quantity }}</td>
+                <td class="align-middle py-2">{{ (item?.discountedPrice * item?.quantity).toFixed(2) }}</td>
+                <td class="align-middle py-2">{{ item?.discount > 0 ?item.discount.toFixed(2):'N/A'}}</td>
+                <td class="align-middle py-2">{{ (item?.discount > 0 ?(item?.quantity *
+                  item.discount).toFixed(2):'N/A')}}</td>
+                <td class="text-nowrap align-middle text-center">
+                  <a href="javascript:void(0)" class="btn btn-default btn-sm icon-btn md-btn-flat text-danger"
+                    ngbTooltip="{{'General.DELETE' | translate}}" (click)="removeItem(i)"><i
+                      class="ion ion-md-trash"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-none">
+  <input #stockBarcodeInput id="stock-barcode-input" type="text" />
+  <button id="stock-barcode-btn" class="d-none" (click)="onAddStockBarcode()"></button>
+</div>

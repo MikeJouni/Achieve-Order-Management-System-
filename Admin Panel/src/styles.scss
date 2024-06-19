@@ -1,0 +1,646 @@
+h4 {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// Remove outline on desktops
+@media(min-width: 720px) {
+
+  ngb-carousel,
+  .dropdown-item,
+  ngb-datepicker,
+  ngb-rating {
+    outline: 0 !important;
+  }
+}
+
+.dropdown-menu-right {
+  right: auto !important;
+}
+
+// *******************************************************************************
+// * Page transition
+
+.router-transitions {
+  opacity: 1;
+  transition: opacity .2s;
+
+  body.app-loading & {
+    opacity: .75;
+  }
+}
+
+// *******************************************************************************
+// * Tooltip and popover animations
+
+@include keyframes(ngTooltipAnimation) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+ngb-tooltip-window {
+  animation: ngTooltipAnimation .25s;
+}
+
+// *******************************************************************************
+// * Modal animations
+
+@include keyframes(ngModalBackdropAnimation) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: .5;
+  }
+}
+
+@include keyframes(ngMaterialModalBackdropAnimation) {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: .2;
+  }
+}
+
+@include keyframes(ngDefaultModalAnimation) {
+  0% {
+    opacity: 0;
+    transform: translateY(150px) scale(.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@include keyframes(ngTopModalAnimation) {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@include keyframes(ngSlideModalAnimation) {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@include keyframes(ngRtlSlideModalAnimation) {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@include keyframes(ngFillInModalAnimation) {
+  0% {
+    opacity: 0;
+    transform: scale(.5, .5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
+
+ngb-modal-backdrop.modal-backdrop {
+  opacity: .5;
+  animation: ngModalBackdropAnimation .15s ease-out;
+}
+
+ngb-modal-window {
+  &.modal .modal-dialog {
+    animation: ngDefaultModalAnimation .15s ease-out;
+  }
+
+  &.modal-top .modal-dialog {
+    animation: ngTopModalAnimation .15s ease-out;
+  }
+
+  &.modal-slide .modal-dialog {
+    animation: ngSlideModalAnimation .15s ease-out;
+  }
+
+  &.modal-fill-in .modal-dialog {
+    animation: ngFillInModalAnimation .15s ease-out;
+  }
+
+  [dir=rtl] &.modal-slide .modal-dialog {
+    animation: ngRtlSlideModalAnimation .15s ease-out;
+  }
+}
+
+.material-style ngb-modal-backdrop.modal-backdrop {
+  opacity: .2;
+  animation: ngMaterialModalBackdropAnimation .15s ease-out;
+}
+
+// Prevent horizontal scrollbar
+[dir=rtl] .dz-hidden-input {
+  right: 0 !important;
+  left: auto !important;
+}
+
+// *******************************************************************************
+// * Accordion
+
+ngb-accordion .card-header>*>.btn.btn-link {
+  width: 100%;
+  padding: 0;
+  text-align: inherit;
+  white-space: normal;
+  vertical-align: inherit;
+  border: 0;
+  font-size: .894rem;
+}
+
+.ngb-accordion-with-icon .card-header>*>.btn.btn-link {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+ngb-typeahead-window .dropdown-item {
+  cursor: pointer;
+}
+
+// *******************************************************************************
+// * Custom
+
+
+
+#my-alert-div {
+  position: fixed !important;
+  right: 10px;
+  top: 10px;
+  z-index: 5000;
+  max-width: 300px;
+  width: 50%;
+
+  ngb-alert {
+    margin: 0px;
+  }
+}
+
+:root {
+  --animate-duration: 1s;
+  --animate-delay: 1s;
+  --animate-repeat: 1;
+}
+
+.animate__animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-duration: var(--animate-duration);
+  animation-duration: var(--animate-duration);
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate__fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.animate__fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
+
+
+
+// My Btn Loading
+.my-btn-loader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .my-loader {
+    display: inline-block;
+    border: 5px solid #d3d3d3;
+    margin-left: 5px;
+    border-radius: 50%;
+    border-top: 5px solid white;
+    width: 25px;
+    height: 25px;
+    -webkit-animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+//custom
+
+
+.my-sidenav-theme {
+  background-color: #2F3337 !important;
+
+  .sidenav-link {
+    color: white !important;
+  }
+
+  .sidenav-item:hover {
+    background-color: rgb(49, 48, 48) !important;
+  }
+
+  .sidenav-item.active {
+    background-color: rgb(49, 48, 48) !important;
+  }
+
+  .my-sidenav-menu.active {
+    background-color: rgb(49, 48, 48) !important;
+  }
+}
+
+.my-navbar-theme {
+  background-color: #fcfdff !important;
+
+  .navbar-brand,
+  .nav-link {
+    color: rgb(0, 0, 0) !important;
+  }
+
+  .navbar-brand:hover,
+  .nav-link:hover {
+    color: #020202 !important;
+  }
+}
+
+.purple {
+  background: #bf66e8 !important;
+  color: white;
+}
+
+.blue {
+  background: #20dce6 !important;
+  color: white;
+}
+
+.yellow {
+  background: #d5eb34 !important;
+  color: white;
+}
+
+.userApproval {
+  background: #9992e8 !important;
+  color: white;
+}
+
+.user-img-and-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+  }
+
+  .name {
+    display: block;
+  }
+
+}
+
+.back-btn {
+  height: fit-content;
+  font-size: 1.5rem;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 0px 10px;
+  transition: 0.7s;
+}
+
+.back-btn:hover {
+  cursor: pointer;
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #2F3337 !important;
+}
+
+.btn-primary:disabled {
+  background-color: #626262 !important;
+}
+
+.btn-dark {
+  background-color: #2F3337 !important;
+}
+
+.ui-round-50 {
+  height: 100px !important;
+  width: 100px !important;
+  border-radius: 50% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.changemodalbtn {
+  padding-left: 13px
+}
+
+.sidenav-logo {
+  width: 100%;
+  text-align: center;
+  margin: 10px auto;
+
+  img {
+    display: block;
+    width: 200px;
+    height: auto;
+    max-width: 150px;
+    margin: 0px auto 5px auto;
+    padding: 5px;
+    border-radius: 50%;
+  }
+
+  .link {
+    display: block;
+    color: white;
+    font-size: 16px;
+  }
+
+  .link:hover {
+    color: rgb(212, 212, 212);
+  }
+}
+
+.mydropdownnav {
+  background-color: #2F3337 !important;
+  color: white !important;
+
+  button {
+    display: flex;
+    align-items: baseline;
+  }
+}
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.stock-img {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.whitespace-normal {
+  white-space: normal !important;
+}
+
+
+// ====================================================
+// Translation
+
+#lang-section[dir="ltr"] {
+  text-align: left;
+
+  .dir-simple {
+    text-align: left;
+  }
+
+  .dir-reverse {
+    text-align: right;
+  }
+
+  .form-group {
+    text-align: left;
+  }
+
+  .my-btn-loader {
+    .my-loader {
+      margin-left: 5px !important;
+    }
+  }
+}
+
+#lang-section[dir="rtl"] {
+  text-align: right;
+
+  .dir-simple {
+    text-align: right;
+  }
+
+  .dir-reverse {
+    text-align: left;
+  }
+
+  @media (min-width: 992px) {
+    .sidenav-toggle-button {
+      display: none !important;
+    }
+  }
+
+  .form-group {
+    text-align: right;
+  }
+
+  .custom-file-label::after {
+    left: 0px;
+    right: auto;
+    border-right: 1px solid rgba(24, 28, 33, 0.1);
+    content: "Browse" !important;
+  }
+
+  #my-alert-div {
+    left: 10px !important;
+    top: 10px !important;
+  }
+
+  @media (min-width: 992px) {
+    .sidenav-toggeler {
+      display: none !important;
+    }
+  }
+
+  .my-btn-loader {
+    .my-loader {
+      margin-right: 5px !important;
+    }
+  }
+
+  .nav-link.dropdown-toggle {
+    .my-user-img {
+      margin-left: 5px !important;
+    }
+  }
+}
+
+.model-ltr {
+
+  // direction: ltr !important;
+  .modal-header .close {
+    // right: 1.5625rem;
+  }
+
+  .form-group {
+    text-align: left;
+  }
+
+  .model-footer {
+    .btn {
+      margin: 2px;
+    }
+  }
+
+  .my-btn-loader {
+    .my-loader {
+      margin-left: 5px !important;
+    }
+  }
+}
+
+.model-rtl {
+  direction: rtl !important;
+
+  .modal-header {
+    padding-left: 2.5625rem !important;
+    padding-right: 1.5625rem !important;
+
+    .close {
+      right: auto !important;
+      left: 1.5625rem !important;
+    }
+  }
+
+  .form-group {
+    text-align: right;
+  }
+
+  .modal-footer {
+    .btn {
+      margin: 2px;
+    }
+  }
+
+  ng-select.ng-select-form {
+    .ng-select-container {
+      padding: 0.438rem 0.875rem;
+    }
+  }
+
+  .user-table {
+    text-align: right;
+  }
+
+  .custom-file-label::after {
+    left: 0px;
+    right: auto;
+    border-right: 1px solid rgba(24, 28, 33, 0.1);
+    content: "Browse" !important;
+  }
+
+  .my-btn-loader {
+    .my-loader {
+      margin-right: 5px !important;
+    }
+  }
+}
+
+.swal-rtl {
+  direction: rtl !important;
+
+  .swal2-close {
+    left: 0px !important;
+    right: auto !important;
+  }
+}

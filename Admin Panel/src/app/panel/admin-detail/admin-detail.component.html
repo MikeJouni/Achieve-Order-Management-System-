@@ -1,0 +1,99 @@
+<button class="btn btn-dark" (click)="onBack()">{{'AdminDetail_Page.BACK' | translate}}</button>
+<div class="media align-items-center py-3 mb-3">
+  <img *ngIf="!adminArray?.profilePhoto" class="d-block" src="assets/user-profile.svg" />
+  <img *ngIf="adminArray?.profilePhoto" class="d-block" [src]="adminService?.fileUrl + adminArray?.profilePhoto" />
+  <div class="media-body mx-4">
+    <h4 class="font-weight-bold mb-0">{{adminArray?.name}}</h4>
+    <div class="text-muted mb-2">{{'AdminDetail_Page.ID' | translate}}: {{adminArray?.id}}</div>
+  </div>
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <table class="table user-view-table m-0 w-auto">
+      <thead>
+        <h5><strong>{{'AdminDetail_Page.INFO' | translate}} :</strong></h5>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{'AdminDetail_Page.E_MAIL' | translate}}:</td>
+          <td>{{adminArray?.email}}</td>
+        </tr>
+        <tr>
+          <td>{{'AdminDetail_Page.ROLE' | translate}}:</td>
+          <td>
+            <span *ngIf="adminArray?.isSuperAdmin" class="badge badge-success">{{'General.SUPER_ADMIN' |
+              translate}}</span>
+            <span *ngIf="!adminArray?.isSuperAdmin" class="badge userApproval">{{'General.ADMIN' |
+              translate}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>{{'AdminDetail_Page.MEMBER_SINCE' | translate}}:</td>
+          <td>{{adminArray?.createdAt | date}}</td>
+        </tr>
+        <tr>
+      </tbody>
+    </table>
+  </div>
+  <hr class="border-light m-0">
+</div>
+<div class="card mb-4" *ngIf="adminArray?.isSuperAdmin==false">
+  <div class="card-body">
+    <table class="table user-view-table m-0 w-auto">
+      <thead>
+        <h5><strong>{{'AdminDetail_Page.COMPANY' | translate}} :</strong></h5>
+      </thead>
+      <tbody *ngFor="let item of adminArray?.companies;">
+        <tr>
+          <td>{{'AdminDetail_Page.NAME' | translate}}:</td>
+          <td>{{item?.name}}</td>
+        </tr>
+        <tr>
+          <td>{{'AdminDetail_Page.DETAIL' | translate}}:</td>
+          <td>{{item?.detail}}</td>
+        </tr>
+        <tr>
+          <td>{{'AdminDetail_Page.REGISTERED' | translate}}:</td>
+          <td>{{item?.createdAt | date}}</td>
+        </tr>
+        <tr>
+          <td>{{'AdminDetail_Page.EXPIRY_DATE' | translate}}:</td>
+          <td>
+            <div class="p-1" [ngClass]="
+            calculateDiff(item?.licenseExpiryDate)?.type ?'badge badge-danger w-75':
+            !calculateDiff(item?.licenseExpiryDate)?.type ?'badge badge-success w-75':''">
+              {{calculateDiff(item?.licenseExpiryDate)?.type?
+              ('General.EXPIRED' | translate) :
+              calculateDiff(item?.licenseExpiryDate)?.days + ' ' + ('General.DAYS_LEFT' | translate)}}
+            </div>
+          </td>
+        </tr>
+        <tr>
+      </tbody>
+    </table>
+  </div>
+  <hr class="border-light m-0">
+</div>
+<!-- <h5><strong>Companies</strong></h5> -->
+<!-- <div class="table-responsive">
+  <table class="table table-striped table-bordered card-table">
+    <thead>
+      <tr>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('name')">
+          Name<i class="ion text-muted ml-2" *ngIf="sortBy == 'name'"
+            [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+        <th class="text-nowrap cursor-pointer" (click)="setSort('detail')">
+          Detail<i class="ion text-muted ml-2" *ngIf="sortBy == 'detail'"
+            [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of adminArray?.companies;">
+        <td class="align-middle py-2">{{ item?.name }}</td>
+        <td class="align-middle py-2">{{ item?.detail }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->

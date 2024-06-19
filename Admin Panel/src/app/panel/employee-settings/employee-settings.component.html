@@ -1,0 +1,117 @@
+<button class="btn btn-dark" (click)="onBack()">Back</button>
+<h4 class="font-weight-bold py-3 mb-4">
+  {{'EmployeeSettings_Page.ACCOUNT_SETTINGS' | translate}}
+</h4>
+<div class="card overflow-hidden col-md-5 col-xs-12 mydiv">
+  <div class="row no-gutters row-bordered row-border-light">
+    <div class="col pt-0">
+      <hr class="border-light m-0">
+      <div class="card-body">
+        <div class="form mb-2">
+          <!-- <label class="form-label">{{'EmployeeSettings_Page.PROFILE_PHOTO' | translate}}</label><br> -->
+          <img *ngIf="!employeeArray?.profilePhoto" src="assets/user-profile.svg" />
+          <img *ngIf="employeeArray?.profilePhoto" [src]="employeeService.fileUrl + employeeArray?.profilePhoto" />
+        </div>
+        <div class="form">
+          <label class="form-label">{{'EmployeeSettings_Page.NAME' | translate}} :</label><br>
+          <h5 class="text-dark">{{employeeArray?.name}}</h5>
+        </div>
+        <div class="form">
+          <label class="form-label">{{'EmployeeSettings_Page.E_MAIL' | translate}} :</label><br>
+          <h5 class="text-dark">{{employeeArray?.email}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-right m-3">
+    <button type="button" class="btn my-1 btn-primary"
+      (click)="open(editModal, item)">{{'EmployeeSettings_Page.EDIT_PROFILE' | translate}}</button>&nbsp;
+    <button type="button" class="btn my-1 btn-default"
+      (click)="open(editPassword, item)">{{'EmployeeSettings_Page.CHANGE_PASSWORD' | translate}}</button>
+  </div>
+  <!-- edit admin modal template -->
+  <ng-template #editModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'EmployeeSettings_Page.EDIT_EMPLOYEE' | translate}}
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'EmployeeSettings_Page.NAME' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'General.JOHN_DOE' | translate}}"
+            [(ngModel)]="employeeData.name" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'EmployeeSettings_Page.E_MAIL' | translate}}</label>
+          <input type="text" class="form-control" placeholder="someone@gmail.com" [(ngModel)]="employeeData.email" />
+        </div>
+      </div>
+      <div class="form-group mt-3">
+        <label class="form-label">
+          {{'EmployeeSettings_Page.ADD_IMAGE' | translate}} <small>({{'EmployeeSettings_Page.OPTIONAL' | translate}})
+            <br>({{'EmployeeSettings_Page.MAX_SIZE_2_MB' | translate}})</small>
+        </label>
+        <label class="custom-file">
+          <input accept="image/png, image/jpeg" type="file" class="custom-file-input"
+            (change)="handleFileInput($event.target.files)" />
+          <span class="custom-file-label">{{fileToUpload ? fileToUpload?.name : profilePhotoVar }}</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click')">
+        {{'EmployeeSettings_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="updateEmployee();">
+        {{'EmployeeSettings_Page.SAVE_CHANGES' | translate}}
+      </button>
+    </div>
+  </ng-template>
+  <!-- /edit user modal template -->
+  <!-- change password -->
+  <ng-template #editPassword let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        {{'EmployeeSettings_Page.EDIT_EMPLOYEE_PASSWORD' | translate}}<br />
+      </h5>
+      <button type="button" class="close" (click)="d('Cross click')">
+        &times;
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-row">
+        <div class="form-group col">
+          <label class="form-label">{{'EmployeeSettings_Page.OLD_PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="passwordData.oldPassword" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'EmployeeSettings_Page.NEW_PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="passwordData.newPassword" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col mb-0">
+          <label class="form-label">{{'EmployeeSettings_Page.CONFIRM_NEW_PASSWORD' | translate}}</label>
+          <input type="password" class="form-control" [(ngModel)]="confirmPassword" />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="c('Close click')">
+        {{'EmployeeSettings_Page.CLOSE' | translate}}
+      </button>
+      <button type="button" class="btn btn-primary" (click)="changePassword();">
+        {{'EmployeeSettings_Page.SAVE_CHANGES' | translate}}
+      </button>
+    </div>
+  </ng-template>

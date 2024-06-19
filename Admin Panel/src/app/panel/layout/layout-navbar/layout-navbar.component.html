@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg align-items-lg-center container-p-x row my-navbar-theme ">
+  <!-- Sidenav toggle -->
+  <div class="navbar-nav align-items-lg-center mr-auto mr-lg-4 col-lg-1" *ngIf="sidenavToggle">
+    <a class="nav-item nav-link px-0 ml-2 sidenav-toggle-button" href="javascript:void(0)" (click)="toggleSidenav()">
+      <i class="ion ion-md-menu text-large align-middle"></i>
+    </a>
+  </div>
+  <!-- Brand -->
+  <div class="text-center col-lg-7 col-md-11 col-sm-11">
+    <a routerLink="/" class="navbar-brand text-center float-center"><strong>{{'General.ACHIEVE_ORDER_MANAGEMENT_SYSTEM' | translate}}</strong></a>
+  </div>
+  <!-- Navbar toggle -->
+  <!-- <button class="navbar-toggler" type="button" (click)="isExpanded = !isExpanded">
+    <i class="fas fa-bars text-dark fa-2x"></i> -->
+  <!-- <span class="navbar-toggler-icon"></span> -->
+  <!-- </button> -->
+  <div class="navbar-collapse collapse col-lg-4 col-sm-4 float-right" style="justify-content: end;"
+    [ngbCollapse]="!isExpanded">
+    <div class="navbar-nav align-items-lg-center">
+      <div ngbDropdown class="demo-navbar-user nav-item"
+        [placement]="translationService?.isRTL ?'bottom-left' : 'bottom-right'">
+        <a ngbDropdownToggle class="nav-link" href="javascript:void(0)">
+          <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
+            <img *ngIf="!dataArray?.profilePhoto" src="assets/user-profile.svg" class="d-block rounded-circle"
+              style="height: 30px; width: 30px;" />
+            <img class="d-block rounded-circle" style="height: 30px; width: 30px;" *ngIf="dataArray?.profilePhoto"
+              [src]="adminService.fileUrl + dataArray?.profilePhoto" />
+            <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{dataArray?.name}}</span>
+          </span>
+        </a>
+        <div ngbDropdownMenu>
+          <div *ngIf="adminService.localAdminData()">
+            <button class="dropdown-item" routerLink='/admin-settings'><i class="ion ion-md-settings"></i> &nbsp;
+              {{'Navbar_Component.ACCOUNT_SETTINGS' | translate}}
+            </button>
+          </div>
+          <div *ngIf="!adminService.localAdminData()">
+            <button class="dropdown-item" routerLink='/employee-settings'><i class="ion ion-md-settings"></i> &nbsp;
+              {{'Navbar_Component.ACCOUNT_SETTINGS' | translate}}
+            </button>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item dir-simple" (click)="translationService.changeLang('en')">
+            <i class="fas fa-globe" [ngClass]="translationService?.isRTL ? 'text-lightest' : 'text-primary'"></i>
+            &nbsp; English
+          </button>
+          <button class="dropdown-item dir-simple" (click)="translationService.changeLang('ar')">
+            <i class="fas fa-globe" [ngClass]="translationService?.isRTL ? 'text-primary' : 'text-lightest'"></i>
+            &nbsp; العربية
+          </button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item" (click)="onLogout()"><i class="ion ion-ios-log-out text-danger"></i> &nbsp;
+            {{'Navbar_Component.LOG_OUT' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,94 @@
+<div class="main-div"
+  [style.background-image]="mainBackgroundImage?'url(' + adminService.fileUrl + mainBackgroundImage + ')':''">
+
+  <div class="card">
+    <div class="p-4 p-sm-5">
+      <!-- Logo -->
+      <div class="d-flex justify-content-center align-items-center pb-2 mb-4">
+        <div class="logo-div">
+          <img src="assets/achieve-logo.png" alt="">
+        </div>
+      </div>
+      <!-- / Logo -->
+      <h5 class="text-center mb-4">
+        <strong>{{'Login_Page.ACHIEVE_ORDER_MANAGEMENT_SYSTEM' | translate}}</strong>
+      </h5>
+
+      <div dir="ltr" class="d-flex justify-content-between align-items-center mx-3 mb-3">
+        <button class="btn" [ngClass]="translationService.isRTL ? 'btn-secondary' : 'btn-dark'" (click)="translationService.changeLang('en')">
+          English
+        </button>
+        <button class="btn" [ngClass]="translationService.isRTL ? 'btn-dark' : 'btn-secondary'" (click)="translationService.changeLang('ar')">
+          العربية
+        </button>
+      </div>
+
+      <div *ngIf="alertData.show" class="alert alert-primary" [ngClass]="'alert-' + alertData.type" role="alert">
+        {{alertData.message}}
+      </div>
+
+      <form *ngIf="!loading" (submit)="login()">
+        <div class="form-group my-2">
+          <label class="form-label">{{'Login_Page.EMAIL' | translate}}</label>
+          <input [(ngModel)]="credentials.email" name="email" type="text" class="form-control"
+            placeholder="{{'Login_Page.EMAIL' | translate}}">
+        </div>
+        <div class="form-group my-2">
+          <label class="form-label d-flex justify-content-between align-items-end">
+            <div>{{'Login_Page.PASSWORD' | translate}} </div><a href="javascript:void(0)" tabindex="-1"
+              class="float-right text-right" routerLink="/forgot-password">{{'Login_Page.FORGOT_PASSWORD' |
+              translate}}</a>
+          </label>
+          <input [(ngModel)]="credentials.password" name="password" type="password" class="form-control"
+            placeholder="******">
+        </div>
+
+        <div class="mb-3">
+
+          <div class="row mt-3 px-3">
+            <div class="form-check col-6">
+              <input class="form-check-input" type="radio" [(ngModel)]="isAdmin" [value]="true" name="flexRadioDefault"
+                id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                {{'Login_Page.ADMIN' | translate}}
+              </label>
+            </div>
+            <div class="form-check col-6">
+              <input class="form-check-input" type="radio" [(ngModel)]="isAdmin" [value]="false" name="flexRadioDefault"
+                id="flexRadioDefault2">
+              <label class="form-check-label" for="flexRadioDefault2">
+                {{'Login_Page.EMPLOYEE' | translate}}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="mb-3 tex-center">
+          <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="recaptchaData.token"
+            (resolved)="resolved($event)"
+            [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
+          <div *ngIf="recaptchaData.isSubmitted && !recaptchaData.token" class="text-danger">
+            {{'Login_Page.RE_CAPTCHA_IS_REQUIRED' | translate}}
+          </div>
+        </div>
+
+        <div class="text-right d-flex m-0 justify-content-end">
+          <button [disabled]="disabledCondition" *ngIf="!forgotPassword" type="submit"
+            class="btn btn-primary text-right">{{'Login_Page.SIGN_IN' | translate}}</button>
+        </div>
+
+        <p *ngIf="disabledCondition" style="color: red;">
+          {{'Login_Page.PLEASE_WAIT_FOR' | translate}}
+          {{reAttemptTime}}
+          {{'Login_Page.MINUTES_TO_RE_ATTEMPT' | translate}}
+        </p>
+
+      </form>
+      <img *ngIf="loading" width="100%" src="assets/loading-icon.gif" alt="">
+
+    </div>
+  </div>
+
+</div>
